@@ -20,6 +20,8 @@ class CreateTeamsTable extends Migration
             $table->unsignedinteger('stadium_id');
             $table->string('secret');
             
+            $table->foreign('stadium_id')->references('id')->on('stadiums');
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
