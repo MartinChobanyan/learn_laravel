@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Stadium;
 
 class StadiumsTableSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class StadiumsTableSeeder extends Seeder
     public function run()
     {
         for($i=0; $i<5; $i++){
-            App\Models\Stadium::create([
+            Stadium::create([
                 'name' => str_random(10),
                 'max_visitors' => random_int(5000, 10000),
                 'width' => random_int(1, 1000),

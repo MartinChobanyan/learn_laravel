@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Player;
 
 class PlayersTableSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class PlayersTableSeeder extends Seeder
     public function run()
     {
         for($i=0; $i<10; $i++){
-            App\Models\Player::create([
+            Player::create([
                 'name' => str_random(10),
                 'nick' => str_random(10),
                 'team_id' => random_int(1, 5),
