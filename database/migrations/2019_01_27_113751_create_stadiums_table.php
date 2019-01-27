@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStadiumTable extends Migration
+class CreateStadiumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateStadiumTable extends Migration
      */
     public function up()
     {
-        Schema::create('Stadiums', function (Blueprint $table) {
+        Schema::create('stadiums', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('max_visitors');
             $table->integer('width');
             $table->integer('length');
             $table->string('secret');
+
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -30,6 +33,6 @@ class CreateStadiumTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Stadiums');
+        Schema::dropIfExists('stadiums');
     }
 }

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             StadiumsTableSeeder::class,
-            CommandsTableSeeder::class,
+            TeamsTableSeeder::class,
             PlayersTableSeeder::class,
         ]);
     }

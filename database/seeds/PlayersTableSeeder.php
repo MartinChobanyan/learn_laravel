@@ -12,10 +12,10 @@ class PlayersTableSeeder extends Seeder
     public function run()
     {
         for($i=0; $i<10; $i++){
-            DB::table('Players')->insert([
+            App\Models\Player::create([
                 'name' => str_random(10),
                 'nick' => str_random(10),
-                'command_id' => random_int(1, 5),
+                'team_id' => random_int(1, 5),
                 'secret' => bcrypt('secret'),
             ]);
         }
