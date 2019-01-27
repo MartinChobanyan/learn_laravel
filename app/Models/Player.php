@@ -8,8 +8,9 @@ class Player extends Model
 {
     //
     public function team(){
-        return $this->belongsTo(Team::class); // 'his key'(in his table), that will be compared with 'my key'(in my table)
+        return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
     protected $guarded = [];
+    protected $hidden = ['secret'];
 }

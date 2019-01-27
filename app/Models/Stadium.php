@@ -13,4 +13,5 @@ class Stadium extends Model
 
     protected $guarded = [];
     protected $table = 'stadiums';
+    protected $hidden = ['secret'];
 }
