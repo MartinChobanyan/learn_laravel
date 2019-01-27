@@ -13,4 +13,7 @@ class Command extends Model
     public function player(){
         // hasMany
     }
+
+    protected $guarded = [];
+    protected $table = 'Commands';
 }
