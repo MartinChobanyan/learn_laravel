@@ -8,7 +8,7 @@ class Stadium extends Model
 {
     //
     public function team(){
-        return $this->hasOne('App\Models\Team', 'stadium_id', 'id');
+        return $this->hasOne(Team::class);
     }
 
     protected $guarded = [];

@@ -8,10 +8,10 @@ class Team extends Model
 {
     //
     public function stadium(){
-        return $this->belongsTo('App\Models\Stadium', 'id', 'stadium_id');
+        return $this->belongsTo(Stadium::class);
     }
     public function player(){
-        return $this->hasMany('App\Models\Player', 'team_id', 'id'); // 'his key'(in his table) that will be compared with 'my key'(in my table);
+        return $this->hasMany(Player::class, 'team_id', 'id'); // 'his key'(in his table) that will be compared with 'my key'(in my table);
     }
 
     protected $guarded = [];
