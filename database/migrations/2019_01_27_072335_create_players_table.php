@@ -17,6 +17,7 @@ class CreatePlayersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('nick');
+            $table->integer('command_id');
             $table->string('secret');
         });
     }

@@ -8,7 +8,7 @@ class Player extends Model
 {
     //
     public function command(){
-        // BelongsTo
+        return $this->belongsTo('App\Command');
     }
 
     protected $guarded = [];

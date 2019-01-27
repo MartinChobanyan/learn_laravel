@@ -8,10 +8,10 @@ class Command extends Model
 {
     //
     public function stadium(){
-        // hasMany
+        return $this->belongsTo('App\Stadium');
     }
     public function player(){
-        // hasMany
+        return $this->hasMany('App\Player', 'command_id', 'id');
     }
 
     protected $guarded = [];

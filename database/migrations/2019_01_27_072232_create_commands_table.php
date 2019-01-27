@@ -17,6 +17,7 @@ class CreateCommandsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('losung');
+            $table->integer('stadium_id');
             $table->string('secret');
         });
     }

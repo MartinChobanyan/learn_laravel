@@ -8,7 +8,7 @@ class Stadium extends Model
 {
     //
     public function command(){
-        // hasMany
+        return $this->hasOne('App\Command', 'stadium_id', 'id');
     }
 
     protected $guarded = [];
