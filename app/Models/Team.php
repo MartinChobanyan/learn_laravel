@@ -10,7 +10,7 @@ class Team extends Model
     public function stadium(){
         return $this->belongsTo(Stadium::class, 'stadium_id', 'id');
     }
-    public function player(){
+    public function players(){
         return $this->hasMany(Player::class, 'team_id', 'id');
     }
 
