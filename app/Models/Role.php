@@ -11,5 +11,5 @@ class Role extends Model
         return $this->belongsToMany(Player::class);
     }
 
-    protected $guarded = [];
+    protected $fillable = ['role'];
 }
