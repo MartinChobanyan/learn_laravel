@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/data', 'dbviewer@view');
+Route::get('/teams', 'TeamController@index'); // f1
+Route::get('/teams/{id}', 'TeamController@show_team'); // f
