@@ -15,5 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teams', 'TeamController@index'); // f1
-Route::get('/teams/{id}', 'TeamController@show_team'); // f
+Route::get('/teams', 'TeamController@index');
+Route::post('/teams/create', 'TeamController@create_team');
+Route::get('/teams/{id}', 'TeamController@show_team');
+Route::post('/teams/{id}/create', 'TeamController@create_player');
