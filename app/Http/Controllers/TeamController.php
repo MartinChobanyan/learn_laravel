@@ -19,18 +19,25 @@ class TeamController extends Controller
         $players = $team->players;
         
         return view("team", [
-            "id" => $id,
-            "team" => $team, 
-            "players" => $players
+            'id' => $id,
+            'team' => $team, 
+            'players' => $players
         ]);
     }
 
     public function create_team(Request $request){
+        //validation
+        $stadium = Stadium::findOrFail($request->stadium_id);
+        $request->validate([
+            'team_name' => 'required|min:3|max:20',
+            'team_losung' => 'required|min:4|max:50'
+        ]);
+
         $team = new Team;
 
-        $team->name = $request->name;
-        $team->losung = $request->losung;
-        $team->stadium_id = Stadium::where('name', $request->stadium_name)->firstOrFail()->id; // Я пока хз как это лучше реализовать с проверкой на наличие стадиона(мб валидация?)
+        $team->name = $request->team_name;
+        $team->losung = $request->team_losung;
+        $team->stadium_id = $stadium->id; // Я пока хз как это лучше реализовать с проверкой на наличие стадиона(мб валидация?)
         $team->secret = bcrypt('secret');
 
         $team->save();
