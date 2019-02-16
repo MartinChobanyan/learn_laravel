@@ -1,42 +1,30 @@
-<html>
+@extends('tplt')
 
-    <head>
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    </head>
+@section('body')
+    <ul>
+        @foreach($teams as $team)
+            <li>    
+                <a href="/teams/{{ $team->id }}">   {{ $team->name }}   </a>
+            </li>
+        @endforeach
+    </ul>
 
-    <body>
-        <ul>
-            @foreach($teams as $team)
-                <li>    
-                    <a href="/teams/{{ $team->id }}">   {{ $team->name }}   </a>
-                </li>
-            @endforeach
-        </ul>
+    <br>
+    <hr>
+    
+    @includeWhen($errors->any(), 'errors')
 
-        <br>
-        <hr>
+    <form method="POST" action="/teams/create">
+    @csrf
 
-        @if($errors->any())
-            <ol>
-                @foreach($errors->all() as $error)
-                    <li class="error">{{ $error }}</li>
-                @endforeach
-            </ol>
-        @endif
+        <input type="text" name="team_name" placeholder="Name" required />
+        <input type="text" name="team_losung" placeholder="Losung" required />
+        <select name="stadium_id" required>
+        @foreach($stadiums as $stadium)
+            <option value="{{ $stadium->id }}">{{ $stadium->name }}</option>
+        @endforeach
+        </select>
 
-        <form method="POST" action="/teams/create">
-        @csrf
-
-            <input type="text" name="team_name" placeholder="Name" required />
-            <input type="text" name="team_losung" placeholder="Losung" required />
-            <select name="stadium_id" required>
-            @foreach($teams as $team)
-                <option value="{{ $team->stadium->id }}">{{ $team->stadium->name }}</option>
-            @endforeach
-            </select>
-
-                <button type="submit">Create New Team</button>
-        </form> 
-
-    </body>
-</html>
+            <button type="submit">Create New Team</button>
+    </form> 
+@endsection

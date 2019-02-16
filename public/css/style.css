@@ -16,3 +16,19 @@ table, tr, th, td{
     width: 30vw;
     text-align: center;
 }
+
+td>input{
+    text-align: center;
+}
+
+td>input[type="text"]:focus{
+    outline: none;
+}
+
+td.td-button{
+    border: none;
+}
+
+td>button{
+    width: 100%;
+}

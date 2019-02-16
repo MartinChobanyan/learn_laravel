@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Stadium;
@@ -11,14 +13,17 @@ class TeamController extends Controller
 {
     //
     public function index(){
-        return view("teams")->with("teams", Team::get());
+        return view('teams', [
+            'teams' => Team::get(),
+            'stadiums' => Stadium::get()
+            ]);
     }
     
     public function show_team($id){
         $team = Team::findOrFail($id);
         $players = $team->players;
         
-        return view("team", [
+        return view('team', [
             'id' => $id,
             'team' => $team, 
             'players' => $players
@@ -45,11 +50,13 @@ class TeamController extends Controller
         return $this->index();
     }
 
-    public function create_player($team_id){
-        request()->validate([
-            'name' => 'required|min:8|max:50|alpha',
-            'nick' => 'required|min:4|max:15|alpha'
-        ]);
+    public function create_player($team_id){ 
+        $validator = $this->player_validator(request());
+
+        if ($validator->fails()) {
+            return redirect('teams/' . $team_id)
+                        ->withErrors($validator);
+        }
 
         $player = new Player;
         $player->name = request()->name;
@@ -60,5 +67,43 @@ class TeamController extends Controller
         $player->save();
 
         return $this->show_team($team_id);
+    }
+
+    public function editor($team_id, $player_id){
+        return view('editor')->with('player', Player::find($player_id));
+    }
+
+    public function edit_player($team_id, $player_id){
+        $validator = $this->player_validator(request());
+
+        if ($validator->fails()) {
+            return redirect('teams/' . $team_id . '/edit/' . $player_id)
+                        ->withErrors($validator);
+        }
+
+        $player = Player::find($player_id);
+
+        $player->name = request()->name;
+        $player->nick = request()->nick;
+
+        $player->save();
+
+        return $this->show_team($team_id);
+
+    }
+
+    private function player_validator($request){
+        return Validator::make(
+            $request->toArray(), 
+            [
+                'name' => 'required|min:8|max:50|alpha',
+                'nick' => 'required|min:4|max:15|alpha'
+            ],
+            [
+                'required' => 'The :attribute field is required.',
+                'between' => 'The :attribute value :input is not between :min - :max.',
+                //'alpha' => 'ERROR - 4'
+            ]
+        );
     }
 }
