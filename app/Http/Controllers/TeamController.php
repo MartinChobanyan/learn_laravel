@@ -55,7 +55,8 @@ class TeamController extends Controller
 
         if ($validator->fails()) {
             return redirect('teams/' . $team_id)
-                        ->withErrors($validator);
+                        ->withErrors($validator)
+                        ->withInput();
         }
 
         $player = new Player;
@@ -78,7 +79,8 @@ class TeamController extends Controller
 
         if ($validator->fails()) {
             return redirect('teams/' . $team_id . '/edit/' . $player_id)
-                        ->withErrors($validator);
+                        ->withErrors($validator)
+                        ->withInput();
         }
 
         $player = Player::find($player_id);

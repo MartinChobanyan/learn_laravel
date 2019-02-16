@@ -7,14 +7,17 @@
 @endsection
 
 @section('body')
+    <button onclick="location.href='/teams/{{ $player->team->id }}'">   Back    </button>
+
+    <br><br>
     @includeWhen($errors->any(), 'errors')
 
-    <form method="POST" action="{{ url()->current() }}"> <!-- /teams/{{ $player->team->id }}/edit/{{ $player->id }}/ -->
+    <form method="POST" action="{{ url()->current() }}"> {{-- /teams/{{ $player->team->id }}/edit/{{ $player->id }}/ --}}
     @csrf
         Name:
-            <input type="text" name="name" value="{{ $player->name }}">
+            <input type="text" name="name" value="{{ old('name', $player->name) }}">
         Nick:
-            <input type="text" name="nick" value="{{ $player->nick }}">
+            <input type="text" name="nick" value="{{ old('nick', $player->nick) }}">
                 <button type="submit">  Save  </button>
     </form>
 @endsection
