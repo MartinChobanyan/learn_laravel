@@ -42,7 +42,7 @@ class TeamController extends Controller
 
         $team->name = $request->team_name;
         $team->losung = $request->team_losung;
-        $team->stadium_id = $stadium->id; // Я пока хз как это лучше реализовать с проверкой на наличие стадиона(мб валидация?)
+        $team->stadium_id = $stadium->id;
         $team->secret = bcrypt('secret');
 
         $team->save();

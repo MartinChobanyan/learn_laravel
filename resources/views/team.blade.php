@@ -37,8 +37,8 @@
     <form method="POST" action="/teams/{{ $id }}/create">
         @csrf
 
-        <input type="text" name="name" placeholder="Name" required />
-        <input type="text" name="nick" placeholder="Nick" required />
+        <input type="text" name="name" value="{{ old('name') }}" placeholder="PlayerName" min="4" maxlength="15" required />
+        <input type="text" name="nick" value="{{ old('nick') }}" placeholder="PlayerNick" min="4" maxlength="15" required />
 
             <button type="submit">  Create New Player   </button>
     </form>

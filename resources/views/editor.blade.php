@@ -15,9 +15,9 @@
     <form method="POST" action="{{ url()->current() }}"> {{-- /teams/{{ $player->team->id }}/edit/{{ $player->id }}/ --}}
     @csrf
         Name:
-            <input type="text" name="name" value="{{ old('name', $player->name) }}">
+            <input type="text" name="name" value="{{ old('name', $player->name) }}" placeholder="PlayerName" min="4" maxlength="15" required />
         Nick:
-            <input type="text" name="nick" value="{{ old('nick', $player->nick) }}">
+            <input type="text" name="nick" value="{{ old('nick', $player->nick) }}" placeholder="PlayerNick" min="4" maxlength="15" required />
                 <button type="submit">  Save  </button>
     </form>
 @endsection

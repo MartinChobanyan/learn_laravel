@@ -17,11 +17,15 @@
     <form method="POST" action="/teams/create">
     @csrf
 
-        <input type="text" name="team_name" placeholder="Name" required />
-        <input type="text" name="team_losung" placeholder="Losung" required />
+        <input type="text" name="team_name" value="{{ old('team_name') }}" placeholder="Name" required />
+        <input type="text" name="team_losung" value="{{ old('team_losung') }}" placeholder="Losung" required />
         <select name="stadium_id" required>
         @foreach($stadiums as $stadium)
-            <option value="{{ $stadium->id }}">{{ $stadium->name }}</option>
+            <option value="{{ $stadium->id }}" 
+                @if(old('stadium_id') == $stadium->id))
+                    selected
+                @endif
+            >{{ $stadium->name }}</option>
         @endforeach
         </select>
 
