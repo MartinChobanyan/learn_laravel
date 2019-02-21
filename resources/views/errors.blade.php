@@ -1,5 +1,5 @@
 <ol>
     @foreach($errors->all() as $error)
-        <li class="error">{{ $error }}</li>
+        <li class="text-danger">{{ $error }}</li>
     @endforeach
 </ol>

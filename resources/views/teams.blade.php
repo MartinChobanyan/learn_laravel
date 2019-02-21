@@ -1,34 +1,43 @@
 @extends('tplt')
 
 @section('body')
-    <ul>
+<h4 style="margin: 2px">Teams:</h4>
+<br>
+
+<div class="col-md-2">
+    <div class="list-group">
         @foreach($teams as $team)
-            <li>    
-                <a href="/teams/{{ $team->id }}">   {{ $team->name }}   </a>
-            </li>
-        @endforeach
-    </ul>
+            <a class="list-group-item text-center" href="/teams/{{ $team->id }}">   {{ $team->name }}   </a>
+         @endforeach
+    </div>
+</div>
+<br>
+<hr>
 
-    <br>
-    <hr>
-    
-    @includeWhen($errors->any(), 'errors')
+@includeWhen($errors->any(), 'errors')
 
-    <form method="POST" action="/teams/create">
-    @csrf
-
-        <input type="text" name="team_name" value="{{ old('team_name') }}" placeholder="Name" required />
-        <input type="text" name="team_losung" value="{{ old('team_losung') }}" placeholder="Losung" required />
-        <select name="stadium_id" required>
-        @foreach($stadiums as $stadium)
-            <option value="{{ $stadium->id }}" 
-                @if(old('stadium_id') == $stadium->id))
-                    selected
-                @endif
-            >{{ $stadium->name }}</option>
-        @endforeach
-        </select>
-
-            <button type="submit">Create New Team</button>
-    </form> 
+<form class="form-inline" method="POST" action="/teams/create">
+@csrf
+    <div class="form-row" style="margin: 2px">
+        <div class="col-md">
+            <input class="form-control" type="text" name="team_name" value="{{ old('team_name') }}" placeholder="Name" autocomplete="off" required />
+        </div>
+        <div class="col-md">
+            <input class="form-control" type="text" name="team_losung" value="{{ old('team_losung') }}" placeholder="Losung" autocomplete="off" required />
+        </div>
+        <div class="col-md">
+            <select class="form-control" name="stadium_id" required>
+                <option value="None(Default)">   Stadium    </option> 
+                @foreach($stadiums as $stadium)
+                    <option value="{{ $stadium->id }}" 
+                        @if(old('stadium_id') == $stadium->id))
+                            selected
+                        @endif
+                    >{{ $stadium->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+        <button class="btn btn-primary btn-sm" type="submit">Create New Team</button>
+</form> 
 @endsection
