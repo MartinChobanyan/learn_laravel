@@ -22,3 +22,4 @@ Route::get('/teams/{id}', 'TeamController@show');
 Route::post('/teams/{id}/create', 'PlayerController@create_player');
 Route::get('/teams/{team_id}/edit/{player_id}', 'PlayerController@edit');
 Route::post('/teams/{team_id}/edit/{player_id}', 'PlayerController@update');
+Route::get('/teams/{team_id}/delete/{player_id}', 'PlayerController@delete');

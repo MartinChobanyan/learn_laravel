@@ -52,12 +52,13 @@ class TeamController extends Controller
     public function delete($team){ // Needs realisation 
         switch(gettype($team)){
             case 'inetger': 
-                Team::findOrFail($team_id)->delete();
+                Team::findOrFail($team)->delete();
                 break;
             case 'string': 
                 Team::where('name', $team)->delete();
                 break;
         }
-        return ;
+
+        return redirect('/teams/' . $team)->with('response', '');
     }
 }

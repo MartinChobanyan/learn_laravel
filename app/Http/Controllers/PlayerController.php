@@ -52,16 +52,11 @@ class PlayerController extends Controller
 
     }
 
-    public function delete($player){ // Needs realisation
-        switch(gettype($player)){
-            case 'inetger': 
-                Team::findOrFail($player)->delete();
-                break;
-            case 'string': 
-                Team::where('name', $player)->delete();
-                break;
-        }
-        return ;
+    public function delete($team_id, $player){
+
+        Player::findOrFail($player)->delete();
+
+        return redirect('/teams/' . $team_id)->with('response', 200);
     } 
 
     private function validator($request){
