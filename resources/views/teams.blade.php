@@ -27,7 +27,7 @@
         </div>
         <div class="col-md">
             <select class="form-control" name="stadium_id" required>
-                <option value="None(Default)">   Stadium    </option> 
+                <option value="">   Stadium    </option> 
                 @foreach($stadiums as $stadium)
                     <option value="{{ $stadium->id }}" 
                         @if(old('stadium_id') == $stadium->id))

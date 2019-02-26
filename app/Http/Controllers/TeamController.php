@@ -31,11 +31,13 @@ class TeamController extends Controller
 
     public function create(Request $request){
         //validation
-        $stadium = Stadium::findOrFail($request->stadium_id);
         $request->validate([
             'team_name' => 'required|min:3|max:20',
-            'team_losung' => 'required|min:4|max:50'
+            'team_losung' => 'required|min:4|max:50',
+            'stadium_id' => 'required'
         ]);
+        
+        $stadium = Stadium::findOrFail($request->stadium_id);
 
         $team = new Team;
 

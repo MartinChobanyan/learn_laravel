@@ -103,13 +103,13 @@ $('#editorModal').on('show.bs.modal', function (e) {
     modal.find('.modal-body form input#player-name').val(name);
     modal.find('.modal-body form input#player-nick').val(nick);
     //--
-
+    
+    // Save
     modal.find('.modal-footer button#Save').click(function(){
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var $player_id = button.data('id'); 
         name = modal.find('.modal-body form input#player-name').val();
         nick = modal.find('.modal-body form input#player-nick').val();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrf_token
@@ -126,21 +126,27 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 'nick': nick
             },
             success: function(result){
-                modal.find('.modal-body form .alert-success').show();
-                modal.find('.modal-body form .alert-success').html(result.success);
+                modal.find('.modal-body .alert-success').show();
+                modal.find('.modal-body .alert-success').html(result.success);
 
                 var player = $('table tr#' + $player_id);
                 player.find('input#name').val(name);
                 player.find('input#nick').val(nick);
             },
             error: function(result) {
-                modal.find('.modal-body form .alert-danger').show();
-                modal.find('.modal-body form .alert-danger').html(result.error);
+                modal.find('.modal-body .alert-danger').show();
+                modal.find('.modal-body .alert-danger').html(result.error);
             }
         });
     });
 
 });
+
+$('#editorModal').on('hide.bs.modal', function () { // hide or hidden
+    var modal = $(this);
+    modal.find('.modal-body .alert-success').hide();
+    modal.find('.modal-body .alert-danger').hide();
+})
 
 function del($player_id){
     if(confirm("Are you sure you want to delete this player?")) 

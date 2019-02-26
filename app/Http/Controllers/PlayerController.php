@@ -9,13 +9,7 @@ use Illuminate\Http\Request;
 class PlayerController extends Controller
 {
     public function create($team_id){ 
-        $validator = $this->validator(request());
-
-        if ($validator->fails()) {
-            return redirect('teams/' . $team_id)
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+        $this->validator(request())->validate();
 
         $player = new Player;
         $player->name = request()->name;
