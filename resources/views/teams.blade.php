@@ -7,7 +7,7 @@
 <div class="col-md-2">
     <div class="list-group">
         @foreach($teams as $team)
-            <a class="list-group-item text-center" href="/teams/{{ $team->id }}">   {{ $team->name }}   </a>
+            <a class="list-group-item text-center" href="/team/{{ $team->id }}">   {{ $team->name }}   </a>
          @endforeach
     </div>
 </div>
@@ -16,7 +16,7 @@
 
 @includeWhen($errors->any(), 'errors')
 
-<form class="form-inline" method="POST" action="/teams/create">
+<form class="form-inline" method="POST" action="/team/create">
 @csrf
     <div class="form-row" style="margin: 2px">
         <div class="col-md">

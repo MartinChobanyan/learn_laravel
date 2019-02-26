@@ -23,7 +23,7 @@ class TeamController extends Controller
         $players = $team->players;
         
         return view('team', [
-            'id' => $id,
+            'team_id' => $id,
             'team' => $team, 
             'players' => $players
         ]);

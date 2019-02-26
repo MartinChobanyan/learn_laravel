@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    public function create_player($team_id){ 
+    public function create($team_id){ 
         $validator = $this->validator(request());
 
         if ($validator->fails()) {
@@ -28,17 +28,11 @@ class PlayerController extends Controller
         return redirect('/teams/' . $team_id);
     }
 
-    public function edit($team_id, $player_id){
-        return view('editor')->with('player', Player::find($player_id));
-    }
-
     public function update($team_id, $player_id){
         $validator = $this->validator(request());
 
         if ($validator->fails()) {
-            return redirect('teams/' . $team_id . '/edit/' . $player_id)
-                        ->withErrors($validator)
-                        ->withInput();
+            return response()->json(['error' => $validator]);
         }
 
         $player = Player::find($player_id);
@@ -48,15 +42,17 @@ class PlayerController extends Controller
 
         $player->save();
 
-        return redirect('/teams/' . $team_id);
+        return response()->json(['success'  =>  'Player has been successfully added']);
 
     }
 
-    public function delete($team_id, $player){
+    public function delete($player_id){
 
-        Player::findOrFail($player)->delete();
+        $player = Player::findOrFail($player_id);
+        $team_id = $player->team->id;
+        $player->delete();
 
-        return redirect('/teams/' . $team_id)->with('response', 200);
+        return redirect('/teams/' . $team_id)->with('response', '200: Success');
     } 
 
     private function validator($request){

@@ -16,10 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/teams', 'TeamController@index');
-Route::post('/teams/create', 'TeamController@create');
-Route::get('/teams/{id}', 'TeamController@show');
+Route::post('/team/create', 'TeamController@create');
+Route::get('/team/{id}', 'TeamController@show');
 
-Route::post('/teams/{id}/create', 'PlayerController@create_player');
-Route::get('/teams/{team_id}/edit/{player_id}', 'PlayerController@edit');
-Route::post('/teams/{team_id}/edit/{player_id}', 'PlayerController@update');
-Route::get('/teams/{team_id}/delete/{player_id}', 'PlayerController@delete');
+Route::post('/player/create/{team_id}', 'PlayerController@create');
+Route::post('/player/edit/{player_id}', 'PlayerController@update');
+Route::get('/player/delete/{player_id}', 'PlayerController@delete');
