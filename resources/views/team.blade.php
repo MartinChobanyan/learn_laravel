@@ -70,8 +70,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-success" style="display:none"></div>
-        <div class="alert alert-danger" style="display:none"></div>
+        <div class="alert alert-success text-success" style="display:none"></div>
+        <div class="alert alert-danger text-danger" style="display:none"></div>
         <form>
           <div class="form-group">
             <label for="player-name" class="col-form-label">Name:</label>
@@ -110,22 +110,19 @@ $('#editorModal').on('show.bs.modal', function (e) {
         var $player_id = button.data('id'); 
         name = modal.find('.modal-body form input#player-name').val();
         nick = modal.find('.modal-body form input#player-nick').val();
-        $.ajaxSetup({
+        $.ajax({
             headers: {
                 'X-CSRF-TOKEN': csrf_token
-            }
-        });
-        $.ajax({
+            },
+
             type: 'POST',
             url: ('/player/edit/' + $player_id),
-            async: false, // after debug must be true
-            timeout: 8000,
-            dataType: 'html',
             data: {
                 'name': name,
                 'nick': nick
             },
-            success: function(result){
+            success: function(result) {
+                modal.find('.modal-body .alert-danger').hide();
                 modal.find('.modal-body .alert-success').show();
                 modal.find('.modal-body .alert-success').html(result.success);
 
@@ -134,8 +131,9 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 player.find('input#nick').val(nick);
             },
             error: function(result) {
+                modal.find('.modal-body .alert-success').hide();
                 modal.find('.modal-body .alert-danger').show();
-                modal.find('.modal-body .alert-danger').html(result.error);
+                modal.find('.modal-body .alert-danger').html('* ' + result.responseJSON.errors.name[0]);
             }
         });
     });

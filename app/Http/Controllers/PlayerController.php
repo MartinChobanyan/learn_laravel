@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PlayerController extends Controller
 {
     public function create($team_id){ 
-        $this->validator(request())->validate();
+        $this->validator(request());
 
         $player = new Player;
         $player->name = request()->name;
@@ -22,22 +22,17 @@ class PlayerController extends Controller
         return redirect('/teams/' . $team_id);
     }
 
-    public function update($player_id){
-        $validator = $this->validator(request());
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator]);
-        }
+    public function update(Request $request, $player_id){
+        $this->validator($request);
 
         $player = Player::find($player_id);
 
-        $player->name = request()->name;
-        $player->nick = request()->nick;
+        $player->name = $request->name;
+        $player->nick = $request->nick;
 
         $player->save();
 
-        return response()->json(['success'  =>  'Player has been successfully added']);
-
+        return response()->json(['success'  =>  "Player's info has been successfully updated!"]);
     }
 
     public function delete($player_id){
@@ -50,8 +45,8 @@ class PlayerController extends Controller
     } 
 
     private function validator($request){
-        return Validator::make(
-            $request->toArray(), 
+        return $this->validate(
+            $request, 
             [
                 'name' => 'required|min:8|max:50|alpha',
                 'nick' => 'required|min:4|max:15|alpha'
