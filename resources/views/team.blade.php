@@ -162,11 +162,9 @@ $('#editorModal').on('show.bs.modal', function (e) {
 
 $('#editorModal').on('hide.bs.modal', function () { // hide or hidden
     var modal = $(this);
-    var input_name = modal.find('.modal-body form input#player-name');
-    var input_nick = modal.find('.modal-body form input#player-nick');
     
-    input_name.removeClass('is-valid').removeClass('is-invalid');
-    input_nick.removeClass('is-valid').removeClass('is-invalid');
+    modal.find('.modal-body form input#player-name').removeClass('is-valid').removeClass('is-invalid');
+    modal.find('.modal-body form input#player-nick').removeClass('is-valid').removeClass('is-invalid');
     
     modal.find('.modal-body .alert-success').hide();
     modal.find('.modal-body .alert-danger').hide();
