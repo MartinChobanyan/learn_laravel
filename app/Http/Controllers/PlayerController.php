@@ -32,7 +32,7 @@ class PlayerController extends Controller
 
         $player->save();
 
-        return response()->json(['success'  =>  "Player's info has been successfully updated!"]);
+        return response()->json(['success'  =>  "Player's info has been successfully updated"]);
     }
 
     public function delete($player_id){

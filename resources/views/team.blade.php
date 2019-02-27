@@ -33,8 +33,8 @@
         @foreach($players as $player)
             <tr id="{{ $player->id }}">
                 <!-- <td>    {{  $player->id }}   </td> -->
-                <td>    {{  $player->name   }}   </td>
-                <td>    {{  $player->nick   }}   </td>
+                <td id="name">    {{  $player->name   }}   </td>
+                <td id="nick">    {{  $player->nick   }}   </td>
                 <td>    <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}" data-name="{{ $player->name }}" data-nick="{{ $player->nick }}">    Edit </button>  </td>
                 <td>    <button onclick="del(this.parentElement.parentElement.id)">  Del </button>    </td>
             </tr>
@@ -124,11 +124,11 @@ $('#editorModal').on('show.bs.modal', function (e) {
             success: function(result) {
                 modal.find('.modal-body .alert-danger').hide();
                 modal.find('.modal-body .alert-success').show();
-                modal.find('.modal-body .alert-success').html(result.success);
+                modal.find('.modal-body .alert-success').html(result.success + '!');
 
                 var player = $('table tr#' + $player_id);
-                player.find('input#name').val(name);
-                player.find('input#nick').val(nick);
+                player.find('td#name').text(name);
+                player.find('td#nick').text(nick);
             },
             error: function(result) {
                 modal.find('.modal-body .alert-success').hide();
