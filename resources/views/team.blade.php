@@ -33,8 +33,8 @@
         @foreach($players as $player)
             <tr id="{{ $player->id }}">
                 <!-- <td>    {{  $player->id }}   </td> -->
-                <td>    <input class="text-center" type="text" id="name" value="{{  $player->name   }}" disabled>   </td>
-                <td>    <input class="text-center" type="text" id="nick" value="{{  $player->nick   }}" disabled>   </td>
+                <td>    {{  $player->name   }}   </td>
+                <td>    {{  $player->nick   }}   </td>
                 <td>    <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}" data-name="{{ $player->name }}" data-nick="{{ $player->nick }}">    Edit </button>  </td>
                 <td>    <button onclick="del(this.parentElement.parentElement.id)">  Del </button>    </td>
             </tr>

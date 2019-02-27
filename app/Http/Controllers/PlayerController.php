@@ -22,7 +22,7 @@ class PlayerController extends Controller
         return redirect('/teams/' . $team_id);
     }
 
-    public function update($team_id, $player_id){
+    public function update($player_id){
         $validator = $this->validator(request());
 
         if ($validator->fails()) {
