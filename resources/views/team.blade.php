@@ -133,11 +133,12 @@ $('#editorModal').on('show.bs.modal', function (e) {
             error: function(result) {
                 modal.find('.modal-body .alert-success').hide();
                 modal.find('.modal-body .alert-danger').show();
-                
-                var error_names = result.responseJSON.errors.name;
-                var errors = '';
-                error_names.forEach(function(error) { errors += '* ' + error + '<br>'; });
-                modal.find('.modal-body .alert-danger').html(errors);
+
+                var errors = result.responseJSON.errors;
+                var errors_msg = '';
+                if(errors.name !== undefined) errors.name.forEach(function(error) { errors_msg += '* ' + error + '<br>'; });
+                if(errors.nick !== undefined) errors.nick.forEach(function(error) { errors_msg += '* ' + error + '<br>'; });
+                modal.find('.modal-body .alert-danger').html(errors_msg);
             }
         });
     });
