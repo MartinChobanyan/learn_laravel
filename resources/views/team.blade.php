@@ -100,16 +100,17 @@ $('#editorModal').on('show.bs.modal', function (e) {
     var nick = button.data('nick');
 
     var modal = $(this);
-    modal.find('.modal-body form input#player-name').val(name);
-    modal.find('.modal-body form input#player-nick').val(nick);
+    var input_name = modal.find('.modal-body form input#player-name');
+    var input_nick = modal.find('.modal-body form input#player-nick');
+
+    input_name.val(name);
+    input_nick.val(nick);
     //--
     
     // Save
     modal.find('.modal-footer button#Save').click(function(){
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var $player_id = button.data('id'); 
-        var input_name = modal.find('.modal-body form input#player-name');
-        var input_nick = modal.find('.modal-body form input#player-nick');
 
         name = input_name.val();
         nick = input_nick.val();
@@ -147,15 +148,37 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 var errors_msg = '';
                 if(errors.name !== undefined) {
                     input_name.removeClass('is-valid').addClass('is-invalid');
-                    errors.name.forEach(function(error) { errors_msg += '* ' + error + '<br>'; });
+                    errors.name.forEach(function(error) { errors_msg += '<span for="name">' + '* ' + error + '<br></span>'; });
                 }
                 if(errors.nick !== undefined){
                     input_nick.removeClass('is-valid').addClass('is-invalid');
-                    errors.nick.forEach(function(error) { errors_msg += '* ' + error + '<br>'; });
+                    errors.nick.forEach(function(error) { errors_msg += '<span for="nick">' + '* ' + error + '<br></span>'; });
                 }
                 modal.find('.modal-body .alert-danger').html(errors_msg);
             }
         });
+    });
+    //--
+    
+    // Inputs
+    input_name.keypress(function(){
+        modal.find('.modal-body .alert-danger span[for="name"]').remove();
+        input_name.removeClass('is-valid').removeClass('is-invalid');
+        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide();
+        if(modal.find('.modal-body .alert-success').is(':visible')) {
+            modal.find('.modal-body .alert-success').hide();
+            input_nick.removeClass('is-valid').removeClass('is-invalid');
+        }
+    });
+
+    input_nick.keypress(function(){
+        modal.find('.modal-body .alert-danger span[for="nick"]').remove();
+        input_nick.removeClass('is-valid').removeClass('is-invalid');
+        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide();
+        if(modal.find('.modal-body .alert-success').is(':visible')) {
+            modal.find('.modal-body .alert-success').hide();
+            input_name.removeClass('is-valid').removeClass('is-invalid');
+        }
     });
 
 });
