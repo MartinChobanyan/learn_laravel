@@ -133,7 +133,10 @@ $('#editorModal').on('show.bs.modal', function (e) {
             error: function(result) {
                 modal.find('.modal-body .alert-success').hide();
                 modal.find('.modal-body .alert-danger').show();
-                modal.find('.modal-body .alert-danger').html('* ' + result.responseJSON.errors.name[0]);
+                
+                var p_errors = '';
+                result.responseJSON.errors.name.forEach(function(error) { p_errors += '* ' + error + '<br>'; });
+                modal.find('.modal-body .alert-danger').html(p_errors);
             }
         });
     });
