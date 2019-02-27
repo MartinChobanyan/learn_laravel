@@ -134,9 +134,10 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 modal.find('.modal-body .alert-success').hide();
                 modal.find('.modal-body .alert-danger').show();
                 
-                var p_errors = '';
-                result.responseJSON.errors.name.forEach(function(error) { p_errors += '* ' + error + '<br>'; });
-                modal.find('.modal-body .alert-danger').html(p_errors);
+                var error_names = result.responseJSON.errors.name;
+                var errors = '';
+                error_names.forEach(function(error) { errors += '* ' + error + '<br>'; });
+                modal.find('.modal-body .alert-danger').html(errors);
             }
         });
     });
