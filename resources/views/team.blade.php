@@ -96,8 +96,8 @@
 $('#editorModal').on('show.bs.modal', function (e) {
     // init
     var button = $(e.relatedTarget);
-    var name = button.data('name'); // takes name's data from table row
-    var nick = button.data('nick'); // takes nick's data from table row
+    var name = button.data('name'); // takes name's data from table
+    var nick = button.data('nick'); // takes nick's data from table
 
     var modal = $(this);
     var input_name = modal.find('.modal-body form input#player-name');
@@ -165,7 +165,7 @@ $('#editorModal').on('show.bs.modal', function (e) {
 
     // Functions
     function InputsLogicOnKeypress(type){
-        modal.find('.modal-body input').removeClass('is-valid').removeClass('is-invalid'); // input indicators to default
+        modal.find('.modal-body input').removeClass('is-valid').removeClass('is-invalid'); // Putting inputs indicators to their initial state
 
         modal.find('.modal-body .alert-danger span[for="' + type + '"]').remove(); // removing errors of input
         if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert if it's empty
@@ -175,9 +175,10 @@ $('#editorModal').on('show.bs.modal', function (e) {
     function ErrorsHandler(errors, types){
         var errors_msg = '';
         types.forEach(function(type){
-            if(eval('errors.' + type)){
+            var errors_type = eval('errors.' + type);
+            if(errors_type){
                 eval('input_' + type).removeClass('is-valid').addClass('is-invalid');
-                eval('errors.' + type).forEach(function(error) { errors_msg += '<span for="' + type + '">' + '* ' + error + '<br></span>'; });
+                errors_type.forEach(function(error) { errors_msg += '<span for="' + type + '">' + '* ' + error + '<br></span>'; });
             }
         });
         return errors_msg;
