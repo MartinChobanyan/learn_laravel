@@ -159,12 +159,10 @@ $('#editorModal').on('show.bs.modal', function (e) {
 
     // Functions
     function InputsLogicOnKeypress(type){
+        modal.find('.modal-body form input').removeClass('is-valid'); // Putting valid inputs indicators(If there are exist) to their initial state
         eval('input_' + type).removeClass('is-valid').removeClass('is-invalid'); // Putting input indicator to its initial state
         modal.find('.modal-body .alert-danger span[for="' + type + '"]').remove(); // removing errors of input
-        if(modal.find('.modal-body .alert-danger').text() === '') {
-            modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
-            modal.find('.modal-body form input').removeClass('is-valid'); // Putting valid input indicator(if it exists) to its initial state
-        }
+        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
         if(modal.find('.modal-body .alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert, if it's visible
     }
 
