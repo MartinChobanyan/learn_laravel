@@ -94,16 +94,17 @@
 <script>
 
 $('#editorModal').on('show.bs.modal', function (e) {
-    // Modal organisation
+    // init
     var button = $(e.relatedTarget);
-    var name = button.data('name');
-    var nick = button.data('nick');
+    var name = button.data('name'); // takes name's data from table row
+    var nick = button.data('nick'); // takes nick's data from table row
 
     var modal = $(this);
     var input_name = modal.find('.modal-body form input#player-name');
     var input_nick = modal.find('.modal-body form input#player-nick');
 
-    input_name.val(name);
+    // putting data into Model inputs
+    input_name.val(name); 
     input_nick.val(nick);
     //--
     
@@ -130,9 +131,11 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 input_nick.addClass('is-valid');
 
                 modal.find('.modal-body .alert-danger').hide();
-                modal.find('.modal-body .alert-success').show();
-                modal.find('.modal-body .alert-success').html(result.success + '!');
 
+                modal.find('.modal-body .alert-success').html(result.success + '!');
+                modal.find('.modal-body .alert-success').show();
+
+                // Updating player data in team's players table
                 var player = $('table tr#' + $player_id);
                 player.find('td#name').text(name);
                 player.find('td#nick').text(nick);
@@ -142,19 +145,9 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 input_nick.addClass('is-valid');
 
                 modal.find('.modal-body .alert-success').hide();
-                modal.find('.modal-body .alert-danger').show();
 
-                var errors = result.responseJSON.errors;
-                var errors_msg = '';
-                if(errors.name !== undefined) {
-                    input_name.removeClass('is-valid').addClass('is-invalid');
-                    errors.name.forEach(function(error) { errors_msg += '<span for="name">' + '* ' + error + '<br></span>'; });
-                }
-                if(errors.nick !== undefined){
-                    input_nick.removeClass('is-valid').addClass('is-invalid');
-                    errors.nick.forEach(function(error) { errors_msg += '<span for="nick">' + '* ' + error + '<br></span>'; });
-                }
-                modal.find('.modal-body .alert-danger').html(errors_msg);
+                modal.find('.modal-body .alert-danger').html(ErrorsHandler(result.responseJSON.errors, ['name', 'nick']));                
+                modal.find('.modal-body .alert-danger').show();
             }
         });
     });
@@ -162,35 +155,41 @@ $('#editorModal').on('show.bs.modal', function (e) {
     
     // Inputs
     input_name.keypress(function(){
-        modal.find('.modal-body .alert-danger span[for="name"]').remove();
-        input_name.removeClass('is-valid').removeClass('is-invalid');
-        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide();
-        if(modal.find('.modal-body .alert-success').is(':visible')) {
-            modal.find('.modal-body .alert-success').hide();
-            input_nick.removeClass('is-valid').removeClass('is-invalid');
-        }
+        InputsLogicOnKeypress('name');
     });
 
     input_nick.keypress(function(){
-        modal.find('.modal-body .alert-danger span[for="nick"]').remove();
-        input_nick.removeClass('is-valid').removeClass('is-invalid');
-        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide();
-        if(modal.find('.modal-body .alert-success').is(':visible')) {
-            modal.find('.modal-body .alert-success').hide();
-            input_name.removeClass('is-valid').removeClass('is-invalid');
-        }
+        InputsLogicOnKeypress('nick');
     });
+    //--
 
+    // Functions
+    function InputsLogicOnKeypress(type){
+        modal.find('.modal-body input').removeClass('is-valid').removeClass('is-invalid'); // input indicators to default
+
+        modal.find('.modal-body .alert-danger span[for="' + type + '"]').remove(); // removing errors of input
+        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert if it's empty
+        if(modal.find('.modal-body .alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert if it's visible
+    }
+
+    function ErrorsHandler(errors, types){
+        var errors_msg = '';
+        types.forEach(function(type){
+            if(eval('errors.' + type)){
+                eval('input_' + type).removeClass('is-valid').addClass('is-invalid');
+                eval('errors.' + type).forEach(function(error) { errors_msg += '<span for="' + type + '">' + '* ' + error + '<br></span>'; });
+            }
+        });
+        return errors_msg;
+    }
+    //--
 });
 
-$('#editorModal').on('hide.bs.modal', function () { // hide or hidden
+$('#editorModal').on('hide.bs.modal', function () {
     var modal = $(this);
     
-    modal.find('.modal-body form input#player-name').removeClass('is-valid').removeClass('is-invalid');
-    modal.find('.modal-body form input#player-nick').removeClass('is-valid').removeClass('is-invalid');
-    
-    modal.find('.modal-body .alert-success').hide();
-    modal.find('.modal-body .alert-danger').hide();
+    modal.find('.modal-body form input').removeClass('is-valid').removeClass('is-invalid');
+    modal.find('.modal-body .alert').hide();
 })
 
 function del($player_id){
