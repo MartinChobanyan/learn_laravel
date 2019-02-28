@@ -127,13 +127,11 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 'nick': nick
             },
             success: function(result) {
-                input_name.addClass('is-valid');
-                input_nick.addClass('is-valid');
-
                 modal.find('.modal-body .alert-danger').hide();
 
-                modal.find('.modal-body .alert-success').html(result.success + '!');
-                modal.find('.modal-body .alert-success').show();
+                input_name.addClass('is-valid');
+                input_nick.addClass('is-valid');
+                modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
                 // Updating player data in team's players table
                 var player = $('table tr#' + $player_id);
@@ -141,13 +139,9 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 player.find('td#nick').text(nick);
             },
             error: function(result) {
-                input_name.addClass('is-valid');
-                input_nick.addClass('is-valid');
-
                 modal.find('.modal-body .alert-success').hide();
 
-                modal.find('.modal-body .alert-danger').html(ErrorsHandler(result.responseJSON.errors, ['name', 'nick']));                
-                modal.find('.modal-body .alert-danger').show();
+                modal.find('.modal-body .alert-danger').html(ErrorsHandler(result.responseJSON.errors, ['name', 'nick'])).show();                
             }
         });
     });
@@ -165,20 +159,24 @@ $('#editorModal').on('show.bs.modal', function (e) {
 
     // Functions
     function InputsLogicOnKeypress(type){
-        modal.find('.modal-body input').removeClass('is-valid').removeClass('is-invalid'); // Putting inputs indicators to their initial state
-
+        eval('input_' + type).removeClass('is-valid').removeClass('is-invalid'); // Putting input indicator to its initial state
         modal.find('.modal-body .alert-danger span[for="' + type + '"]').remove(); // removing errors of input
-        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert if it's empty
-        if(modal.find('.modal-body .alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert if it's visible
+        if(modal.find('.modal-body .alert-danger').text() === '') {
+            modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
+            modal.find('.modal-body form input').removeClass('is-valid'); // Putting valid input indicator(if it exists) to its initial state
+        }
+        if(modal.find('.modal-body .alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert, if it's visible
     }
 
     function ErrorsHandler(errors, types){
         var errors_msg = '';
         types.forEach(function(type){
-            var errors_type = eval('errors.' + type);
+            var errors_type = eval('errors.' + type); // errors.(type) -> Errors of type ...
             if(errors_type){
-                eval('input_' + type).removeClass('is-valid').addClass('is-invalid');
+                eval('input_' + type).addClass('is-invalid');
                 errors_type.forEach(function(error) { errors_msg += '<span for="' + type + '">' + '* ' + error + '<br></span>'; });
+            } else {
+                eval('input_' + type).addClass('is-valid');
             }
         });
         return errors_msg;
@@ -194,7 +192,7 @@ $('#editorModal').on('hide.bs.modal', function () {
 })
 
 function del($player_id){
-    if(confirm("Are you sure you want to delete this player?")) 
+    if(confirm('Are you sure you want to delete this player?')) 
         location.href = ('/player/delete/' + $player_id);
 }
 
