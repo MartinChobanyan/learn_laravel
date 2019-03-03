@@ -14,8 +14,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url('/teams') }}">   Home    </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/home') }}">  Home   </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/teams') }}"> Teams </a>
                     </li>
                 </ul>
             </div>
@@ -24,4 +27,11 @@
         @yield('body')
     
     </body>
+    
+    <script>
+        $(document).ready(function() {
+            $('li.active').removeClass('active');
+            $('a[href="' + location.href + '"]').closest('li').addClass('active'); 
+        });
+    </script>
 </html>
