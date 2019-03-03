@@ -17,10 +17,18 @@
 
 Route::view('/', 'home');
 
-Route::get('/teams', 'TeamController@index');
-Route::post('/team/create', 'TeamController@create');
-Route::get('/team/{id}', 'TeamController@show');
+Route::middleware('auth')->group(function () {
+    Route::prefix('team')->group(function(){
+        Route::get('/', 'TeamController@index');
+        Route::post('create', 'TeamController@store');
+        Route::get('{id}', 'TeamController@show'); 
+    });
+    
+    Route::prefix('player')->group(function () {
+        Route::post('create/{team_id}', 'PlayerController@store');
+        Route::put('edit/{player_id}', 'PlayerController@update');
+        Route::delete('delete/{player_id}', 'PlayerController@delete');
+    });
+});
 
-Route::post('/player/create/{team_id}', 'PlayerController@create');
-Route::post('/player/edit/{player_id}', 'PlayerController@update');
-Route::get('/player/delete/{player_id}', 'PlayerController@delete');
+Auth::routes();

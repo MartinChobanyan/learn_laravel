@@ -1,14 +1,7 @@
 @extends('tplt')
 
-@section('head')
-@parent
-
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
-@endsection
-
 @section('body')
-<button class="btn btn-primary btn-md" style="margin: 2px" onclick="location.href='/teams'">   Back    </button>
+<button class="btn btn-primary btn-md" style="margin: 2px" onclick="location.href='/team'">   Back    </button>
 <br><br>
 
 <h4>
@@ -90,14 +83,22 @@
     </div>
   </div>
 </div>
+<form id="player-delete-form" method="POST">
+  @method('DELETE')
+  @csrf  
+</form>
 
 <script src="{{ asset('js/player-editor.js') }}"></script>
 
 <script>
 
 function del($player_id){
-    if(confirm('Are you sure you want to delete this player?')) 
-        location.href = ('/player/delete/' + $player_id);
+    if(confirm('Are you sure you want to delete this player?')){ 
+      var form = document.getElementById('player-delete-form');
+      form.action = '/player/delete/' + $player_id;
+      
+      form.submit();
+    }
 }
 
 </script>

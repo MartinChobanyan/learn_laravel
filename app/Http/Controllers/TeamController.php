@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Stadium;
@@ -29,7 +27,7 @@ class TeamController extends Controller
         ]);
     }
 
-    public function create(Request $request){
+    public function store(Request $request){
         //validation
         $request->validate([
             'team_name' => 'required|min:3|max:20',
@@ -61,6 +59,6 @@ class TeamController extends Controller
                 break;
         }
 
-        return redirect('/teams/' . $team)->with('response', '');
+        return redirect('/team/' . $team)->with('response', '');
     }
 }

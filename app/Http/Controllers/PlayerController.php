@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use App\Models\Player;
 use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    public function create($team_id){ 
+    public function store($team_id){ 
         $this->validator(request());
 
         $player = new Player;
@@ -19,7 +18,7 @@ class PlayerController extends Controller
         
         $player->save();
 
-        return redirect('/teams/' . $team_id);
+        return redirect('/team/' . $team_id);
     }
 
     public function update(Request $request, $player_id){
@@ -41,7 +40,7 @@ class PlayerController extends Controller
         $team_id = $player->team->id;
         $player->delete();
 
-        return redirect('/teams/' . $team_id)->with('response', '200: Success');
+        return redirect('/team/' . $team_id)->with('response', '200: Success');
     } 
 
     private function validator($request){

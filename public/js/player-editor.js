@@ -25,7 +25,7 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 'X-CSRF-TOKEN': csrf_token
             },
 
-            type: 'POST',
+            type: 'PUT',
             url: ('/player/edit/' + $player_id),
             data: {
                 'name': name,
