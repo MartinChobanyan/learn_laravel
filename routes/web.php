@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('player')->group(function () {
         Route::post('create/{team_id}', 'PlayerController@store');
-        Route::put('edit/{player_id}', 'PlayerController@update');
+        Route::put('edit', 'PlayerController@update');
         Route::delete('delete', 'PlayerController@delete');
     });
 });

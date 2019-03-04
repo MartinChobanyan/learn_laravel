@@ -92,36 +92,26 @@
 
 <script>
 
-function del($player_id){
+  function del(player_id){
     if(confirm('Are you sure you want to delete this player?')){ 
       $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-
-            type: 'DELETE',
-            url: '/player/delete',
-            data: {
-                'player_id': $player_id,
-            },
-            success: function(result) {
-              location.reload();
-              alert(result.success)
-            },
-            error: function(result) {
-              alert('Something gone wrong!')
-              console.error(result);                
-            }
-        });
+        type: 'DELETE',
+        url: '/player/delete',
+        data: {
+          'player_id': player_id,
+        },
+        success: function(result) {
+          alert(result.success);
+          location.reload();
+        },
+        error: function(result) {
+          alert('Something gone wrong!');
+          console.error(result);                
+        }
+      });
     }
-}
+  }
 
 </script>
-
-{{-- @if(session('response'))
-<script>
-    alert({{ session('response') }});
-</script>
-@endif --}}
 
 @endsection

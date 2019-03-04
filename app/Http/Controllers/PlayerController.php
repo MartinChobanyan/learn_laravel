@@ -21,10 +21,10 @@ class PlayerController extends Controller
         return redirect('/team/' . $team_id);
     }
 
-    public function update(Request $request, $player_id){
+    public function update(Request $request){
         $this->validator($request);
 
-        $player = Player::find($player_id);
+        $player = Player::findOrFail($request->player_id);
 
         $player->name = $request->name;
         $player->nick = $request->nick;

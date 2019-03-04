@@ -15,19 +15,15 @@ $('#editorModal').on('show.bs.modal', function (e) {
     
     // Save
     modal.find('.modal-footer button#Save').click(function(){
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
-        var $player_id = button.data('id'); 
+        var player_id = button.data('id'); 
 
         name = input_name.val();
         nick = input_nick.val();
         $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': csrf_token
-            },
-
             type: 'PUT',
-            url: ('/player/edit/' + $player_id),
+            url: '/player/edit',
             data: {
+                'player_id': player_id,
                 'name': name,
                 'nick': nick
             },
@@ -39,7 +35,7 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
                 // Updating player data in team's players table
-                var player = $('table tr#' + $player_id);
+                var player = $('table tr#' + player_id);
                 player.find('td#name').text(name);
                 player.find('td#nick').text(nick);
             },
