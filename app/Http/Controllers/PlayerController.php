@@ -34,13 +34,10 @@ class PlayerController extends Controller
         return response()->json(['success'  =>  "Player's info has been successfully updated"]);
     }
 
-    public function delete($player_id){
+    public function delete(Request $request){
+        Player::findOrFail($request->player_id)->delete();
 
-        $player = Player::findOrFail($player_id);
-        $team_id = $player->team->id;
-        $player->delete();
-
-        return redirect('/team/' . $team_id)->with('response', '200: Success');
+        return response()->json(['success'  =>  '200: Success']);
     } 
 
     private function validator($request){
