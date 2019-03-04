@@ -1,8 +1,11 @@
 $('#editorModal').on('show.bs.modal', function (e) {
-    // init
+    //init
     var button = $(e.relatedTarget);
-    var name = button.data('name'); // takes name's data from table
-    var nick = button.data('nick'); // takes nick's data from table
+    var $player_id = button.data('id');
+
+    var player = $('table tr#' + $player_id);
+    var name = player.find('td#name').text();
+    var nick = player.find('td#nick').text();
 
     var modal = $(this);
     var input_name = modal.find('.modal-body form input#player-name');
@@ -14,16 +17,13 @@ $('#editorModal').on('show.bs.modal', function (e) {
     //--
     
     // Save
-    modal.find('.modal-footer button#Save').click(function(){
-        var player_id = button.data('id'); 
-
+    modal.find('.modal-footer button#Save').click(function(){ 
         name = input_name.val();
         nick = input_nick.val();
         $.ajax({
             type: 'PUT',
-            url: '/player/edit',
+            url: ('/player/edit/' + $player_id),
             data: {
-                'player_id': player_id,
                 'name': name,
                 'nick': nick
             },
@@ -35,7 +35,7 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
                 // Updating player data in team's players table
-                var player = $('table tr#' + player_id);
+                var player = $('table tr#' + $player_id);
                 player.find('td#name').text(name);
                 player.find('td#nick').text(nick);
             },

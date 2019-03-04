@@ -25,11 +25,10 @@
         <tbody>
         @foreach($players as $player)
             <tr id="{{ $player->id }}">
-                <!-- <td>    {{  $player->id }}   </td> -->
-                <td id="name">    {{  $player->name   }}   </td>
-                <td id="nick">    {{  $player->nick   }}   </td>
-                <td>    <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}" data-name="{{ $player->name }}" data-nick="{{ $player->nick }}">    Edit </button>  </td>
-                <td>    <button onclick="del(this.parentElement.parentElement.id)">  Del </button>    </td>
+                <td id="name">{{  $player->name   }}</td>
+                <td id="nick">{{  $player->nick   }}</td>
+                <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}">    Edit </button>  </td>
+                <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}"> Del </button> </td>
             </tr>
         @endforeach
         <tbody>
@@ -83,35 +82,24 @@
     </div>
   </div>
 </div>
-<form id="player-delete-form" method="POST">
-  @method('DELETE')
-  @csrf  
-</form>
+
+<div class="modal fade" id="deletorModal" tabindex="-1" role="dialog" aria-labelledby="deletorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="alert alert-success text-success" style="display:none"></div>
+        <div class="alert alert-danger text-danger" style="display:none"></div>
+        <h5 id="question">Do you want to delete player?</h5>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" id="Close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="Delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="{{ asset('js/player-editor.js') }}"></script>
-
-<script>
-
-  function del(player_id){
-    if(confirm('Are you sure you want to delete this player?')){ 
-      $.ajax({
-        type: 'DELETE',
-        url: '/player/delete',
-        data: {
-          'player_id': player_id,
-        },
-        success: function(result) {
-          alert(result.success);
-          location.reload();
-        },
-        error: function(result) {
-          alert('Something gone wrong!');
-          console.error(result);                
-        }
-      });
-    }
-  }
-
-</script>
+<script src="{{ asset('js/player-deletor.js') }}"></script>
 
 @endsection

@@ -21,10 +21,10 @@ class PlayerController extends Controller
         return redirect('/team/' . $team_id);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $player_id){
         $this->validator($request);
 
-        $player = Player::findOrFail($request->player_id);
+        $player = Player::findOrFail($player_id);
 
         $player->name = $request->name;
         $player->nick = $request->nick;
@@ -34,10 +34,10 @@ class PlayerController extends Controller
         return response()->json(['success'  =>  "Player's info has been successfully updated"]);
     }
 
-    public function delete(Request $request){
-        Player::findOrFail($request->player_id)->delete();
+    public function delete($player_id){
+        Player::findOrFail($player_id)->delete();
 
-        return response()->json(['success'  =>  '200: Success']);
+        return response()->json(['success'  =>  "Player has been successfully deleted"]);
     } 
 
     private function validator($request){
