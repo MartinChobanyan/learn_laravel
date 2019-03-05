@@ -39,8 +39,10 @@
 
 @includeWhen($errors->any(), 'errors')
 
-<form class="form-inline" method="POST" action="/player/create/{{ $team_id }}">
+<form class="form-inline" method="POST" action="/player/create">
     @csrf
+    <input type="hidden" name="team_id" value="{{ $team_id }}">
+
     <div class="form-row" style="margin: 2px">
         <div class="col-md">
             <input class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />

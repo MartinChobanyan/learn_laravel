@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    public function store($team_id){ 
-        $this->validator(request());
+    public function store(Request $request){ 
+        $this->validator($request);
 
         $player = new Player;
-        $player->name = request()->name;
-        $player->nick = request()->nick;
-        $player->team_id = $team_id;
+        $player->name = $request->name;
+        $player->nick = $request->nick;
+        $player->team_id = $request->team_id;
         $player->secret = bcrypt('secret');
         
         $player->save();
 
-        return redirect('/team/' . $team_id);
+        return redirect('/team/' . $player->team_id);
     }
 
     public function update(Request $request, $player_id){
