@@ -1,15 +1,17 @@
+var modal, button, $player_id, player, name, nick, input_name, input_nick;
+
 $('#editorModal').on('show.bs.modal', function (e) {
     //init
-    var button = $(e.relatedTarget);
-    var $player_id = button.data('id');
+    button = $(e.relatedTarget);
+    $player_id = button.data('id');
 
-    var player = $('table tr#' + $player_id);
-    var name = player.find('td#name').text();
-    var nick = player.find('td#nick').text();
+    player = $('table tr#' + $player_id);
+    name = player.find('td#name').text();
+    nick = player.find('td#nick').text();
 
-    var modal = $(this);
-    var input_name = modal.find('.modal-body form input#player-name');
-    var input_nick = modal.find('.modal-body form input#player-nick');
+    modal = $(this);
+    input_name = modal.find('.modal-body form input#player-name');
+    input_nick = modal.find('.modal-body form input#player-nick');
 
     // putting data into Model inputs
     input_name.val(name); 
@@ -35,7 +37,7 @@ $('#editorModal').on('show.bs.modal', function (e) {
                 modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
                 // Updating player data in team's players table
-                var player = $('table tr#' + $player_id);
+                player = $('table tr#' + $player_id);
                 player.find('td#name').text(name);
                 player.find('td#nick').text(nick);
             },
@@ -84,8 +86,6 @@ $('#editorModal').on('show.bs.modal', function (e) {
 });
 
 $('#editorModal').on('hide.bs.modal', function () {
-    var modal = $(this);
-    
     modal.find('.modal-body form input').removeClass('is-valid').removeClass('is-invalid');
     modal.find('.modal-body .alert').hide();
 });
