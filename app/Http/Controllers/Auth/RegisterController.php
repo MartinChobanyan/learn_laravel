@@ -49,10 +49,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'min:6', 'max:20', 'unique:users'], 
+            'name' => ['required', 'string', 'max:255', 'alpha'],
+            'phone' => ['required_without:skype', 'min:6', 'max:20', 'unique:users'],
+            'skype' => ['required_without:phone', 'string', 'max:100', 'unique:users'], 
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ],
+        [
+            'required' => 'The :attribute field is required.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'alpha' => 'The :attribute value mast contain only latyn letters.'
         ]);
     }
 
@@ -67,6 +73,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'phone' => $data['phone'],
+            'skype' => $data['skype'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
