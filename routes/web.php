@@ -17,7 +17,10 @@
 
 Route::view('/', 'home');
 
+Auth::routes();
 Route::middleware('auth')->group(function () {
+    Route::view('/profile', 'profile')->name('profile');
+
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');
         Route::post('create', 'TeamController@store');
@@ -30,5 +33,3 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{player_id}', 'PlayerController@delete');
     });
 });
-
-Auth::routes();
