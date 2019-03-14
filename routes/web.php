@@ -20,6 +20,7 @@ Route::view('/', 'home');
 Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::view('/profile', 'profile')->name('profile');
+    Route::put('/profile/edit/{user_id}', 'UserController@update');
 
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');
