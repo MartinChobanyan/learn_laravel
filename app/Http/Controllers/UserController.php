@@ -18,7 +18,7 @@ class UserController extends Controller
         
         $user->name = $request->name;
         $user->phone = $request->phone;
-    //    $user->skype = $request->skype;
+        $user->skype = $request->skype;
         $user->email = $request->email;
 
         $user->save();

@@ -44,25 +44,22 @@
             <div class="modal-body">
                 <div class="alert alert-success text-success" style="display:none"></div>
                 <div class="alert alert-danger text-danger" style="display:none"></div>
-                <form>
+                <form id="editor-form">
                     <div class="form-group">
                         <label for="user-name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="user-name" placeholder="UserName" min="8" maxlength="50" autocomplete="off" autofocus>
+                        <input type="text" name="name" class="form-control" id="user-name" placeholder="UserName" min="8" maxlength="50" autocomplete="off" autofocus>
+                    </div> 
+                    <div class="form-group">
+                        <label for="user-phone" class="col-form-label">Phone:</label>
+                        <input type="text" name="phone" class="form-control" id="user-phone" data-mask="+(999)99 999-999" placeholder="UserPhone" min="6" maxlength="20" autocomplete="off">
                     </div>
-                    @if(Auth::user()->phone) 
-                        <div class="form-group">
-                            <label for="user-phone" class="col-form-label">Phone:</label>
-                            <input type="text" class="form-control" id="user-phone" data-mask="+(999)99 999-999" placeholder="UserPhone" min="6" maxlength="20" autocomplete="off">
-                        </div>
-                    @else
-                        <div class="form-group">
-                            <label for="user-skype" class="col-form-label">Skype:</label>
-                            <input type="text" class="form-control" id="user-skype" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
-                        </div>
-                    @endif
+                    <div class="form-group">
+                        <label for="user-skype" class="col-form-label">Skype:</label>
+                        <input type="text" name="skype" class="form-control" id="user-skype" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
+                    </div>
                     <div class="form-group">
                         <label for="user-email" class="col-form-label">Email:</label>
-                        <input type="text" class="form-control" id="user-email" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
+                        <input type="text" name="email" class="form-control" id="user-email" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
                     </div>
                 </form>
             </div>
