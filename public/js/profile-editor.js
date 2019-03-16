@@ -76,12 +76,12 @@ function InputsLogicOnKeydown(input){
 
 function ErrorsHandler(errors){
     let errors_msg = '';
-    formInputs.map(function() {
-        if(errors[this.name]){
-            $(this).addClass('is-invalid');
-            errors[this.name].forEach(function(error) { errors_msg += '<span for="' + this.name + '">' + '* ' + error + '<br></span>'; });
+    formInputs.map((_index, input) => {
+        if(errors[input.name]){
+            $(input).addClass('is-invalid');
+            errors[input.name].forEach(function(error) { errors_msg += '<span for="' + input.name + '">' + '* ' + error + '<br></span>'; });
         } else {
-            $(this).addClass('is-valid');
+            $(input).addClass('is-valid');
         }
     });
     return errors_msg;
