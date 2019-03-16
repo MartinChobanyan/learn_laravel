@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Profile') }}</div>
 
-                <div class="card-body" id="{{ Auth::user()->id }}">
+                <div class="card-body">
 
                     <h6> 
                         <strong>Name:</strong> <span id="name">{{ Auth::user()->name }}</span>
@@ -47,19 +47,19 @@
                 <form id="editor-form">
                     <div class="form-group">
                         <label for="user-name" class="col-form-label">Name:</label>
-                        <input type="text" name="name" class="form-control" id="user-name" placeholder="UserName" min="8" maxlength="50" autocomplete="off" autofocus>
+                        <input type="text" name="name" class="form-control" placeholder="UserName" min="8" maxlength="50" autocomplete="off" autofocus>
                     </div> 
                     <div class="form-group">
                         <label for="user-phone" class="col-form-label">Phone:</label>
-                        <input type="text" name="phone" class="form-control" id="user-phone" data-mask="+(999)99 999-999" placeholder="UserPhone" min="6" maxlength="20" autocomplete="off">
+                        <input type="text" name="phone" class="form-control" data-mask="+(999)99 999-999" placeholder="UserPhone" min="6" maxlength="20" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="user-skype" class="col-form-label">Skype:</label>
-                        <input type="text" name="skype" class="form-control" id="user-skype" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
+                        <input type="text" name="skype" class="form-control" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="user-email" class="col-form-label">Email:</label>
-                        <input type="text" name="email" class="form-control" id="user-email" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
+                        <input type="text" name="email" class="form-control" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
                     </div>
                 </form>
             </div>
