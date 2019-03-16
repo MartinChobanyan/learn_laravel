@@ -7,25 +7,37 @@
             <div class="card">
                 <div class="card-header">{{ __('Profile') }}</div>
 
-                <div class="card-body">
-
-                    <h6> 
-                        <strong>Name:</strong> <span id="name">{{ Auth::user()->name }}</span>
-                            <br>
-
-                        @if(Auth::user()->phone) 
-                            <strong>Phone:</strong> <span id="phone">{{ Auth::user()->phone }}</span>
-                        @else
-                            <strong>Skype:</strong> <span id="skype">{{ Auth::user()->skype }}</span>
-                        @endif
-                            <br>
-
-                        <strong>Email:</strong> <span id="email">{{ Auth::user()->email }}</span>
-                            <br> 
-                        <strong>Password:</strong> &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;
-                    </h6>
-
-                    <button type="button" class="btn-primary" data-toggle="modal" data-target="#editorModal" data-id="{{ Auth::user()->id }}">Edit</button>
+                <div class="card-body pb-1">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group mb-0">
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Name:</b></h5>
+                                    <h5 class="text-muted my-1" id="name">{{ Auth::user()->name }}</h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Phone:</b></h5>
+                                    <h5 class="text-muted my-1" id="phone">{{ Auth::user()->phone ? Auth::user()->phone : '' }}</h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Skype:</b></h5>
+                                    <h5 class="text-muted my-1" id="skype">{{ Auth::user()->skype ? Auth::user()->skype : '' }}</h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Email:</b></h5>
+                                    <h5 class="text-muted my-1" id="email">{{ Auth::user()->email }}</h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Password:</b></h5>
+                                    <h5 class="text-muted my-1" id="password">&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="btn-group col my-2">
+                        <button type="button" class="btn btn-primary" onclick="location.href='{{ route('changepassword') }}'">Change Password</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editorModal" data-id="{{ Auth::user()->id }}">Edit</button>
+                    </div>
                 </div>
             </div>
         </div>
