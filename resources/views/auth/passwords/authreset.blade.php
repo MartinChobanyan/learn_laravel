@@ -14,7 +14,7 @@
                         </div>
                     @endif
                     
-                    <form method="POST" action="/profile/changepassword/{{ Auth::user()->id }}">
+                    <form method="POST">
                         @csrf
 
                         <div class="form-group row">
