@@ -8,6 +8,12 @@
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
+                    @if (session('error'))
+                        <div class="alert alert-danger text-danger">
+                            <span>*</span> {{ session('error') }}
+                        </div>
+                    @endif
+                    
                     <form method="POST" action="/profile/changepassword/{{ Auth::user()->id }}">
                         @csrf
 
