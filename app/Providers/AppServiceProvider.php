@@ -26,12 +26,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('notOldPassword', function($attribute, $value, $parameters, $validator){
+        Validator::extend('checkPassword', function($attribute, $value){
+            return Auth::attempt(['email' => Auth::user()->email, 'password' => $value]);
+        }, 'Your current password doesn`t matche with the password you provided.');
+
+        Validator::extend('notOldPassword', function($attribute, $value){
             return !(Hash::check($value, Auth::user()->password));
         }, 'New Password can`t be same as your current password.');
-
-        Validator::extend('checkPassword', function($attribute, $value, $parameters, $validator){
-            return Hash::check($value, Auth::user()->password);
-        }, 'Your current password doesn`t matche with the password you provided.');
     }
 }
