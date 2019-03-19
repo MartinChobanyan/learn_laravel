@@ -8,9 +8,10 @@
 
         </form>
 
-        <div class="col-md-8">
+        <div class="col-md-13">
             <div class="card">
                 <div class="card-body">
+                    <h3>Posts:</h3>
                     @foreach (Auth::user()->posts as $post)
                         @include('post')                
                     @endforeach
