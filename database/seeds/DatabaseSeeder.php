@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PlayersTableSeeder::class,
             RolesTableSeeder::class,
             PlayerRoleTableSeeder::class,
+            PostTableSeeder::class
         ]);
     }
 }
