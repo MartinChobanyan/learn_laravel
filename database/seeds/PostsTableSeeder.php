@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Post;
 use App\Models\User;
 
-class PostTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
