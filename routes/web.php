@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', 'UserController@updatePassword');
         
         Route::put('/edit/{user_id}', 'UserController@update');
+
+        Route::get('/my-posts', 'PostController@index');
+        Route::post('/my-posts/create', 'PostController@create')->name('post-create');
     });
 
     Route::prefix('team')->group(function(){
