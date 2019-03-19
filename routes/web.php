@@ -19,10 +19,14 @@ Route::view('/', 'home');
 
 Auth::routes();
 Route::middleware('auth')->group(function () {
-    Route::view('/profile', 'profile')->name('profile');
-    Route::get('/profile/change-password', 'UserController@changePassword')->name('changepassword');
-    Route::post('/profile/change-password', 'UserController@updatePassword');
-    Route::put('/profile/edit/{user_id}', 'UserController@update');
+    Route::prefix('profile')->group(function(){
+        Route::view('/', 'profile')->name('profile');
+
+        Route::get('/change-password', 'UserController@changePassword')->name('change-password');
+        Route::post('/change-password', 'UserController@updatePassword');
+        
+        Route::put('/edit/{user_id}', 'UserController@update');
+    });
 
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');

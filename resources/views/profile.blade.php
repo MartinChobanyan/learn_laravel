@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="btn-group col my-2">
-                        <button type="button" class="btn btn-primary" onclick="location.href='{{ route('changepassword') }}'">Change Password</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='{{ route('change-password') }}'">Change Password</button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editorModal" data-id="{{ Auth::user()->id }}">Edit</button>
                     </div>
                 </div>
