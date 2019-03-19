@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
         
         Route::put('/edit/{user_id}', 'UserController@update');
 
-        Route::get('/my-posts', 'PostController@index');
+        Route::get('/my-posts', 'PostController@index')->name('my-posts');
         Route::post('/my-posts/create', 'PostController@create')->name('post-create');
     });
 
