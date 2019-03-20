@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -24,21 +25,7 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'photo' => [],
-            'title' => [],
-            'content' => []
-        ]);
-
-        $post = new Post;
-        $post->id = Auth::id();
-        $post->photo = $request->photo;
-        $post->title = $request->title;
-        $post->content = $request->content;
-
-        $post->save();
-
-        return redirect()->back()->with('success', 'Your post has been successfully added!');
+        //
     }
 
     /**
@@ -49,7 +36,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'photo' => 'active_url|nullable|string|min:5|max:150',
+            'title' => 'required|string|min:3|max:80',
+            'content' => 'required|string|min:3|max:700'
+        ]);
+
+        $post = new Post;
+        $post->author_id = Auth::id();
+        $post->photo = $request->photo;
+        $post->title = $request->title;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'Your post has been successfully added!');
     }
 
     /**
