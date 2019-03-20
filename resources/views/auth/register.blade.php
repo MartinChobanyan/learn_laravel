@@ -31,13 +31,13 @@
                             <div class="col-md-6">
                                 <select class="form-control{{ $errors->has('phone') || $errors->has('skype') ? ' is-invalid' : '' }}" id="PhoneOrEmail" required>
                                     <option>PhoneOrSkype</option>
-                                    <option>Phone</option>
-                                    <option>Skype</option>
+                                    <option {{ $errors->has('phone') ? 'selected' : '' }}>Phone</option>
+                                    <option {{ $errors->has('skype') ? 'selected' : '' }}>Skype</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-group row" style="display:none">
+                        <div class="form-group row" style="{{ $errors->has('phone') ? '' : 'display:none' }}">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
 
                             <div class="col-md-6">
@@ -51,7 +51,7 @@
                         </div>
 
                         
-                        <div class="form-group row" style="display:none">
+                        <div class="form-group row" style="{{ $errors->has('skype') ? '' : 'display:none' }}">
                             <label for="skype" class="col-md-4 col-form-label text-md-right">Skype</label>
 
                             <div class="col-md-6">
