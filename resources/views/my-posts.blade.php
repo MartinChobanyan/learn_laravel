@@ -17,7 +17,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="PostTitle">Title:</label>
-                            <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" placeholder="Post Title">
+                            <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" placeholder="Post Title" value="{{ old('title') }}">
                             
                             @if ($errors->has('title'))
                                 <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="PostPhoto">Photo:</label>
-                            <input type="text" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" placeholder="http://example.com/.../*.(jpg,png..etc)">
+                            <input type="text" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" placeholder="http://example.com/.../*.(jpg,png..etc)" value="{{ old('photo') }}">
                             
                             @if ($errors->has('photo'))
                                 <span class="invalid-feedback" role="alert">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="PostContent">Content:</label>
-                            <textarea class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" rows="6"></textarea>
+                            <textarea class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" rows="6">{{ old('content') }}</textarea>
                             
                             @if ($errors->has('content'))
                                 <span class="invalid-feedback" role="alert">

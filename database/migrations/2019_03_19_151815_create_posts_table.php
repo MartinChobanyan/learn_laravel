@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('author_id');
             $table->string('photo')->nullable();
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
 

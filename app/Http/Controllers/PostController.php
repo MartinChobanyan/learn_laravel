@@ -23,7 +23,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
     }
@@ -42,13 +42,9 @@ class PostController extends Controller
             'content' => 'required|string|min:3|max:700'
         ]);
 
-        $post = new Post;
-        $post->author_id = Auth::id();
-        $post->photo = $request->photo;
-        $post->title = $request->title;
-        $post->content = $request->content;
-
-        $post->save();
+        $postData = $request->all();
+        $postData['author_id'] = Auth::id();
+        Post::create($postData);
 
         return redirect()->back()->with('success', 'Your post has been successfully added!');
     }
