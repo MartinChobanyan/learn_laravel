@@ -1,6 +1,8 @@
 @extends('tplt')
 
 @section('body')
+@includeWhen(session('success'), 'notification', ['notify_message' => session('success')])
+
 <div class="container mb-3">
     <div class="row justify-content-end mb-3">
         <button class="btn btn-primary" id="addPost" style="{{ $errors->isEmpty() ? '' : 'display:none' }}">+ Add Post</button>
