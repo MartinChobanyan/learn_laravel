@@ -62,10 +62,10 @@
                         @foreach ($posts->reverse() as $post)
                             <div id="buttons-{{ $post->id }}" class="col-md-1 float-right ml-1 mr-1">
                                 <div class="row mb-1">
-                                    <button data-toggle="modal" data-target="#editorModal" data-id="{{ $post->id }}" class="btn btn-secondary">Edit</button>
+                                    <button data-toggle="modal" data-target="#editorModal" data-id="{{ $post->id }}" class="btn btn-secondary btn-sm">Edit</button>
                                 </div>
                                 <div class="row">
-                                    <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $post->id }}" class="btn btn-secondary">Del</button>
+                                    <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $post->id }}" class="btn btn-secondary btn-sm">Del</button>
                                 </div>
                             </div>
                             @include('profile/posts/post')                
