@@ -11,9 +11,7 @@ class PlayerController extends Controller
         $this->validator($request);
 
         $player = new Player;
-        $player->name = $request->name;
-        $player->nick = $request->nick;
-        $player->team_id = $request->team_id;
+        $player->fill($request->all());
         $player->secret = bcrypt('secret');
         
         $player->save();
@@ -26,8 +24,7 @@ class PlayerController extends Controller
 
         $player = Player::findOrFail($player_id);
 
-        $player->name = $request->name;
-        $player->nick = $request->nick;
+        $player->fill($request->all());
 
         $player->save();
 

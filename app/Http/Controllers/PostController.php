@@ -88,9 +88,7 @@ class PostController extends Controller
             'content' => 'required|string|min:3|max:700'
         ]);
 
-        $post->photo = $request->photo;
-        $post->title = $request->title;
-        $post->content = $request->content;
+        $post->fill($request->all());
 
         $post->save();
 
