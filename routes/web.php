@@ -11,20 +11,18 @@
 |
 */
 
-use App\Models\Post;
-
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
 Route::get('/', function(){
-    return view('home', ['posts' => Post::get()]);
+    return view('home', ['posts' => App\Models\Post::get()]);
 });
 
 Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::prefix('profile')->group(function(){
-        Route::view('/', 'profile')->name('profile');
+        Route::view('/', 'profile/profile')->name('profile');
 
         Route::get('/change-password', 'UserController@changePassword')->name('change-password');
         Route::post('/change-password', 'UserController@updatePassword');

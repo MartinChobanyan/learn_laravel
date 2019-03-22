@@ -68,7 +68,7 @@
                                     <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $post->id }}" class="btn btn-secondary">Del</button>
                                 </div>
                             </div>
-                            @include('post')                
+                            @include('profile/posts/post')                
                         @endforeach
                     @else
                         <h4 class="display-4">There is no posts to show! :(</h4>

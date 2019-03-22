@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('my-posts');
+        return view('profile/posts/my-posts');
     }
 
     /**

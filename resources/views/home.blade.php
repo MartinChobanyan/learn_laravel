@@ -25,7 +25,7 @@
           <div class="card-body">
             @if($posts->isNotEmpty())
               @foreach ($posts->reverse() as $post)
-                @include('post')
+                @include('profile/posts/post')
               @endforeach
             @else
               <h4 class="row justify-content-center display-4">There is no posts to show! :(</h4>

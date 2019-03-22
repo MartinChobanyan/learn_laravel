@@ -10,7 +10,7 @@ class TeamController extends Controller
 {
     //
     public function index(){
-        return view('teams', [
+        return view('teams/teams', [
             'teams' => Team::get(),
             'stadiums' => Stadium::get()
             ]);
@@ -20,7 +20,7 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $players = $team->players;
         
-        return view('team', [
+        return view('teams/team', [
             'team_id' => $id,
             'team' => $team, 
             'players' => $players
