@@ -78,9 +78,23 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $post_id)
     {
-        //
+        $post = Post::findOrFail($post_id);
+
+        $request->validate([
+            'photo' => 'active_url|nullable|string|max:150',
+            'title' => 'required|string|min:3|max:80',
+            'content' => 'required|string|min:3|max:700'
+        ]);
+
+        $post->photo = $request->photo;
+        $post->title = $request->title;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return response()->json(['success' => 'Your post has been successfully updated!']);
     }
 
     /**
@@ -89,8 +103,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function delete($post_id)
     {
-        //
+        Post::destroy($post_id);
+
+        return response()->json(['success' => 'Post has been successfully deleted']);
     }
 }

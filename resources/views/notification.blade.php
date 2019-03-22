@@ -3,6 +3,6 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('div[role="notification"]').delay({{ $notify_duration ? $notify_duration : 5000 }}).animate({'top' : "-=60px"}, 'slow');
+        $('div[role="notification"]').delay(5000).animate({'top' : "-=60px"}, 'slow');
     });
 </script>
