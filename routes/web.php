@@ -11,11 +11,15 @@
 |
 */
 
+use App\Models\Post;
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::view('/', 'home');
+Route::get('/', function(){
+    return view('home', ['posts' => Post::get()]);
+});
 
 Auth::routes();
 Route::middleware('auth')->group(function () {
