@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');
         Route::post('create', 'TeamController@store');
+        Route::get('delete/{team_id}', 'TeamController@delete');
         Route::get('{id}', 'TeamController@show'); 
     });
     

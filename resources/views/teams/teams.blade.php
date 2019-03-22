@@ -1,14 +1,19 @@
 @extends('tplt')
 
 @section('body')
+@includeWhen(session('del-success'), 'notification', ['notify_message' => session('del-success')])
+
 <h4 style="margin: 2px">Teams:</h4>
 <br>
 
 <div class="col-md-2">
     <div class="list-group">
         @foreach($teams as $team)
-            <a class="list-group-item text-center" href="/team/{{ $team->id }}">   {{ $team->name }}   </a>
-         @endforeach
+            <div class="row mb-1 ml-1">
+                <a class="list-group-item text-center" href="/team/{{ $team->id }}">   {{ $team->name }}   </a>
+                <div><button class="btn btn-secondary btn-sm" onclick="location.href='/team/delete/{{ $team->id }}'">Del</button></div>
+            </div>
+        @endforeach
     </div>
 </div>
 <br>

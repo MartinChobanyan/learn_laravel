@@ -46,19 +46,12 @@ class TeamController extends Controller
 
         $team->save();
         
-        return $this->index();
+        return redirect()->back();
     }
 
-    public function delete($team){ // Needs realisation 
-        switch(gettype($team)){
-            case 'inetger': 
-                Team::findOrFail($team)->delete();
-                break;
-            case 'string': 
-                Team::where('name', $team)->delete();
-                break;
-        }
+    public function delete($team){
+        Team::findOrFail($team)->delete();
 
-        return redirect('/team/' . $team)->with('response', '');
+        return redirect()->back()->with('del-success', 'Team has been successfully deleted!');
     }
 }
