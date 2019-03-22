@@ -1,7 +1,6 @@
 $('#deletorModal').on('show.bs.modal', function (e) {
     //init
-    var button = $(e.relatedTarget);
-    var $player_id = button.data('id');
+    var $player_id = $(e.relatedTarget).data('id');
 
     var player = $('table tr#' + $player_id);
     var nick = player.find('td#nick').text();
