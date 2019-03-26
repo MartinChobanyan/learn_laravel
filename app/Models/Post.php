@@ -11,5 +11,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
+    public function image(){
+        return $this->hasOne(PostImage::class, 'post_id', 'id');
+    }
+
     protected $fillable=['author_id', 'photo', 'title', 'content'];
 }
