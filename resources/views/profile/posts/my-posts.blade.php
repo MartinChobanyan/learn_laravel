@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="PostPhoto">Photo:</label>
-                            <input type="text" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" placeholder="http://example.com/.../*.(jpg,png..etc)" value="{{ old('photo') }}" min="5" maxlength="150" autocomplete="off">
+                            <input type="file" class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo">
                             
                             @if ($errors->has('photo'))
                                 <span class="invalid-feedback" role="alert">

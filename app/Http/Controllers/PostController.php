@@ -37,13 +37,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'photo' => 'active_url|nullable|string|min:5|max:150',
+            'photo' => 'required|nullable|image|mimes:jpeg,bmp,png,gif',
             'title' => 'required|string|min:3|max:80',
             'content' => 'required|string|min:3|max:700'
         ]);
 
-        $postData = $request->all();
+        $postData = $request->except('photo');
         $postData['author_id'] = Auth::id();
+        $postData['photo'] = $request->photo->store('images');
         Post::create($postData);
 
         return redirect()->back()->with('success', 'Your post has been successfully added!');
