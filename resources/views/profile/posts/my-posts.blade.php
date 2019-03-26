@@ -15,7 +15,7 @@
                 <div class="card-header">Create Post</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('post-store') }}">
+                    <form enctype="multipart/form-data" method="POST" action="{{ route('post-store') }}">
                         @csrf
                         <div class="form-group">
                             <label for="PostTitle">Title:</label>

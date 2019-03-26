@@ -1,7 +1,7 @@
-<div id="{{ $post->id }}" class="card card-body bg-faded mb-3">
+<div id="{{ $post->id }}" class="card card-body bg-faded mb-2">
     <div class="media">
         <a class="pull-left" href="#">
-            <img class="mr-3" src="{{ $post->photo }}">
+            <img class="mr-3" src="{{ asset($post->photo) }}">
             <span style="display:none" id="post-photo">{{ $post->photo }}</span>
         </a>
 
