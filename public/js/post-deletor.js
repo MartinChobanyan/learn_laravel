@@ -1,12 +1,12 @@
 $('#deletorModal').on('show.bs.modal', function (e) {
     //init
-    var $post_id = $(e.relatedTarget).data('id');
+    let $post_id = $(e.relatedTarget).data('id');
 
-    var post = $('div#' + $post_id);
-    var title = post.find('h4').text();
+    let post = $('div#' + $post_id);
+    let title = post.find('h4').text();
 
-    var modal = $(this);
-    modal.find('#question').html('Do you really want to delete post <br>"<i>' + title + '</i>&nbsp;"&nbsp;?');
+    let modal = $(this);
+    modal.find('#question').html('Are you sure you want to delete "<i>' + title + '</i>" post?');
 
     // Delete
     modal.find('.modal-footer button#Delete').click(function(){
@@ -28,5 +28,9 @@ $('#deletorModal').on('show.bs.modal', function (e) {
                 console.error(result);                
             }
         });
-    }); 
+    });
+});
+
+$('#deletorModal').on('hide.bs.modal', function () {
+    modal.find('.alert').hide();
 });

@@ -20,7 +20,7 @@ class CreatePlayersTable extends Migration
             $table->unsignedinteger('team_id');
             $table->string('secret');
             
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

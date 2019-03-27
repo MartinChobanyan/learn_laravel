@@ -25,10 +25,6 @@ Artisan::command(
         $path = $this->argument('path');
         $link_path = $this->argument('link_path');
 
-        if(!($path & $link_path)){
-            return $this->error('Options do not exist.');
-        }
-
         if (file_exists(public_path($link_path))) {
             return $this->error('The "' . $link_path . '" directory already exists.');
         }
