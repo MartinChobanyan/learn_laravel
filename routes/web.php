@@ -19,6 +19,8 @@ Route::get('/', function(){
     return view('home', ['posts' => App\Models\Post::get()]);
 });
 
+Route::get('post/image/{post_id}', 'PostController@getPhoto');
+
 Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::prefix('profile')->group(function(){
