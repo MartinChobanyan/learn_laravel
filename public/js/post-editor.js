@@ -22,19 +22,21 @@ modal.on('show.bs.modal', function (e) {
 //--
 
 // Close
-$('#editorModal').on('hide.bs.modal', function () {
+modal.on('hide.bs.modal', function () {
     formInputs.removeClass('is-valid').removeClass('is-invalid');
+    modal.find('input[type=file]').val('');
     modal.find('.alert').hide();
 });
 //--
 
 // Save
 modal.find('.modal-footer button#Save').click(function(){ 
-    let data = new FormData();
     $.ajax({
-        type: 'PUT',
+        type: 'POST',
         url: ('/profile/my-posts/edit/' + $post_id),
-        data: data,
+        data: new FormData(modal.find('#editor-form')[0]),
+        processData: false,
+        contentType: false,
         success: function(result) {
             modal.find('.alert-danger').hide();
             formInputs.map(function(){
@@ -45,8 +47,7 @@ modal.find('.modal-footer button#Save').click(function(){
 
             // Updating post data in posts
             formInputs.map(function() {
-                $('#post-' + this.name).text(this.value);
-                this.name == 'photo' ? $('div#post-' + this.name + '"]').css('background-image', 'url(post/image/' + $post_id + '?' + new Date().getTime() + ')') : null; 
+                this.name == 'photo' ? $('#post-' + this.name).css('background-image', 'url(/post/image/' + $post_id + '?' + new Date().getTime() + ')') : $('#post-' + this.name).text(this.value); 
             });
         },
         error: function(result) {
