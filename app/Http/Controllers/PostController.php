@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class PostController extends Controller
 {
@@ -18,14 +20,16 @@ class PostController extends Controller
         return view('profile/posts/my-posts');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getPhoto($post_id)
     {
-        //
+        $post = Post::findOrFail($post_id);
+        $file = Storage::get($post->photo);
+        $mimeType = Storage::mimeType($post->photo);
+
+        $response = Response::make($file);
+        $response->header('Content-Type', $mimeType);
+
+        return $response;
     }
 
     /**
@@ -37,7 +41,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'photo' => 'required|nullable|image|mimes:jpeg,bmp,png,gif,svg|max:4096|dimensions:min_width:100,min_height:100,max_width=350,max_height=350',
+            'photo' => 'required|image|mimes:jpeg,bmp,png,gif,svg|max:4096|dimensions:min_width:100,min_height:100',
             'title' => 'required|string|min:3|max:80',
             'content' => 'required|string|min:3|max:700'
         ]);
@@ -84,12 +88,17 @@ class PostController extends Controller
         $post = Post::findOrFail($post_id);
 
         $request->validate([
-            'photo' => 'active_url|nullable|string|max:150',
+            'photo' => 'nullable|image|mimes:jpeg,bmp,png,gif,svg|max:4096|dimensions:min_width:100,min_height:100',
             'title' => 'required|string|min:3|max:80',
             'content' => 'required|string|min:3|max:700'
         ]);
 
-        $post->fill($request->all());
+        $post->fill($request->except('photo'));
+
+        if($request->photo){
+            Storage::delete($post->photo);
+            $post->photo = $request->photo->store('images');
+        }
 
         $post->save();
 
@@ -104,7 +113,10 @@ class PostController extends Controller
      */
     public function delete($post_id)
     {
-        Post::destroy($post_id);
+        $post = Post::findOrFail($post_id);
+        
+        Storage::delete($post->photo);
+        $post->delete();
 
         return response()->json(['success' => 'Post has been successfully deleted']);
     }

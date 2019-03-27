@@ -60,7 +60,7 @@
                 <div class="card-body">
                     @if(($posts = Auth::user()->posts)->isNotEmpty())
                         @foreach ($posts->reverse() as $post)
-                            <div id="buttons-{{ $post->id }}" class="col-md-1 float-right ml-1 mr-1">
+                            <div id="buttons-{{ $post->id }}" class="col-md-1 float-right ml-1">
                                 <div class="row mb-1">
                                     <button data-toggle="modal" data-target="#editorModal" data-id="{{ $post->id }}" class="btn btn-secondary btn-sm">Edit</button>
                                 </div>
@@ -91,14 +91,14 @@
             <div class="modal-body">
                 <div class="alert alert-success text-success" style="display:none"></div>
                 <div class="alert alert-danger text-danger" style="display:none"></div>
-                <form id="editor-form">
+                <form enctype="multipart/form-data" id="editor-form">
                     <div class="form-group">
                         <label for="post-title" class="col-form-label">Title:</label>
                         <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" min="3" maxlength="80" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="post-photo" class="col-form-label">Photo:</label>
-                        <input type="text" class="form-control" id="post-photo" name="photo" placeholder="http://example.com/.../*.(jpg,png..etc)" min="5" maxlength="150" autocomplete="off">
+                        <input type="file" class="form-control" id="post-photo" name="photo">
                     </div>
                     <div class="form-group">
                         <label for="post-content" class="col-form-label">Content:</label>
@@ -120,7 +120,7 @@
                 <div class="modal-body">
                     <div class="alert alert-success text-success" style="display:none"></div>
                     <div class="alert alert-danger text-danger" style="display:none"></div>
-                    <h5 id="question">Do you want to delete post?</h5>
+                    <h5 id="question" style="word-wrap:break-word">Do you want to delete post?</h5>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" id="Close" data-dismiss="modal">Close</button>
