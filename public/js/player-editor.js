@@ -1,91 +1,84 @@
-var modal, button, $player_id, player, name, nick, input_name, input_nick;
+// Declaring & init
+let 
+    emodal = $('#editorModal'),
+    formInputs = emodal.find('#editor-form :input'),
+    $player_id,
+    player;
+//--
 
-$('#editorModal').on('show.bs.modal', function (e) {
-    //init
-    button = $(e.relatedTarget);
-    $player_id = button.data('id');
-
+emodal.on('show.bs.modal', function (e) {
+    // init
+    $player_id = $(e.relatedTarget).data('id');
     player = $('table tr#' + $player_id);
-    name = player.find('td#name').text();
-    nick = player.find('td#nick').text();
-
-    modal = $(this);
-    input_name = modal.find('.modal-body form input#player-name');
-    input_nick = modal.find('.modal-body form input#player-nick');
+    //--
 
     // putting data into Model inputs
-    input_name.val(name); 
-    input_nick.val(nick);
-    //--
-    
-    // Save
-    modal.find('.modal-footer button#Save').click(function(){ 
-        name = input_name.val();
-        nick = input_nick.val();
-        $.ajax({
-            type: 'PUT',
-            url: ('/player/edit/' + $player_id),
-            data: {
-                'name': name,
-                'nick': nick
-            },
-            success: function(result) {
-                modal.find('.modal-body .alert-danger').hide();
-
-                input_name.addClass('is-valid');
-                input_nick.addClass('is-valid');
-                modal.find('.modal-body .alert-success').html(result.success + '!').show();
-
-                // Updating player data in team's players table
-                player = $('table tr#' + $player_id);
-                player.find('td#name').text(name);
-                player.find('td#nick').text(nick);
-            },
-            error: function(result) {
-                modal.find('.modal-body .alert-success').hide();
-
-                modal.find('.modal-body .alert-danger').html(ErrorsHandler(result.responseJSON.errors, ['name', 'nick'])).show();                
-            }
-        });
+    formInputs.map(function() {
+        this.value = player.find('td#' + this.name).text();
     });
-    //--
-    
-    // Inputs
-    input_name.keypress(function(){
-        InputsLogicOnKeypress('name');
-    });
-
-    input_nick.keypress(function(){
-        InputsLogicOnKeypress('nick');
-    });
-    //--
-
-    // Functions
-    function InputsLogicOnKeypress(type){
-        modal.find('.modal-body form input').removeClass('is-valid'); // Putting valid inputs indicators(If there are exist) to their initial state
-        eval('input_' + type).removeClass('is-valid').removeClass('is-invalid'); // Putting input indicator to its initial state
-        modal.find('.modal-body .alert-danger span[for="' + type + '"]').remove(); // removing errors of input
-        if(modal.find('.modal-body .alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
-        if(modal.find('.modal-body .alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert, if it's visible
-    }
-
-    function ErrorsHandler(errors, types){
-        var errors_msg = '';
-        types.forEach(function(type){
-            var errors_type = eval('errors.' + type); // errors.(type) -> Errors of type ...
-            if(errors_type){
-                eval('input_' + type).addClass('is-invalid');
-                errors_type.forEach(function(error) { errors_msg += '<span for="' + type + '">' + '* ' + error + '<br></span>'; });
-            } else {
-                eval('input_' + type).addClass('is-valid');
-            }
-        });
-        return errors_msg;
-    }
     //--
 });
 
-$('#editorModal').on('hide.bs.modal', function () {
-    modal.find('.modal-body form input').removeClass('is-valid').removeClass('is-invalid');
-    modal.find('.modal-body .alert').hide();
+emodal.on('hide.bs.modal', function () {
+    emodal.find('.modal-body form input').removeClass('is-valid').removeClass('is-invalid');
+    emodal.find('.modal-body .alert').hide();
 });
+
+// Save
+emodal.find('.modal-footer button#Save').click(function(){ 
+    $.ajax({
+        type: 'PUT',
+        url: ('/player/edit/' + $player_id),
+        data: $('#editor-form').serialize(),
+        success: function(result) {
+            emodal.find('.alert-danger').hide();
+            formInputs.map(function(){
+                if(this.value) $(this).addClass('is-valid');
+            });
+
+            emodal.find('.modal-body .alert-success').html(result.success + '!').show();
+
+            // Updating player data in team's players table
+            formInputs.map(function() {
+                player.find('td#' + this.name).text(this.value);
+            });
+        },
+        error: function(result) {
+            emodal.find('.modal-body .alert-success').hide();
+
+            emodal.find('.modal-body .alert-danger').html(ErrorsHandler(result.responseJSON.errors)).show();                
+        }
+    });
+});
+//--
+
+// Modal inputs logic
+formInputs.map(function() {
+    $(this).mouseup(function(){
+        InputsLogicOnMouseup(this);
+    });
+});
+//--
+
+// Functions
+function InputsLogicOnMouseup(input){
+    formInputs.removeClass('is-valid'); // Putting valid inputs indicators(If there are exist) to their initial state
+    $(input).removeClass('is-invalid'); // Putting input indicator to its initial state
+    emodal.find('.alert-danger span[for="' + input.name + '"]').remove(); // removing errors of input
+    if(emodal.find('.alert-danger').text() === '') emodal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
+    if(emodal.find('.alert-success').is(':visible')) emodal.find('.modal-body .alert-success').hide(); // Hidding Success alert, if it's visible
+}
+
+function ErrorsHandler(errors){
+    let errors_msg = '';
+    formInputs.map((_index, input) => {
+        if(errors[input.name]){
+            $(input).addClass('is-invalid');
+            errors[input.name].forEach(function(error) { errors_msg += '<span for="' + input.name + '">' + '* ' + error + '<br></span>'; });
+        } else {
+            $(input).addClass('is-valid');
+        }
+    });
+    return errors_msg;
+}
+//--

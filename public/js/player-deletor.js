@@ -1,30 +1,44 @@
-$('#deletorModal').on('show.bs.modal', function (e) {
-    //init
-    var $player_id = $(e.relatedTarget).data('id');
+//Declaring & init
+let 
+    dmodal = jQuery('#deletorModal'),
+    $player_id,
+    player;
+//--
 
-    var player = $('table tr#' + $player_id);
-    var nick = player.find('td#nick').text();
+dmodal.on('show.bs.modal', function (e) {
+    // init
+    $player_id = $(e.relatedTarget).data('id');
+    player = $('table tr#' + $player_id);
+    //--
 
-    var modal = $(this);
-    modal.find('#question').text('Do you really want to delete player ' + nick + '?');
-
-    // Delete
-    modal.find('.modal-footer button#Delete').click(function(){
-        $.ajax({
-            type: 'DELETE',
-            url: ('/player/delete/' + $player_id),
-            success: function(result) {
-                modal.find('.modal-body .alert-success').show().text(result.success + '!');
-                player.remove();
-
-                setTimeout(function(){
-                    modal.modal('hide');
-                }, 1300);
-            },
-            error: function(result) {
-                modal.find('.modal-body .alert-danger').show().text('Something had gone wrong!');
-                console.error(result);                
-            }
-        });
-    }); 
+    // putting data into Model body
+    dmodal.find('#question').text('Do you really want to delete player ' + player.find('td#nick').text() + '?');
+    //--
 });
+
+//Close
+dmodal.on('hide.bs.modal', function () {
+    dmodal.find('.alert').hide();
+});
+//--
+
+// Delete
+dmodal.find('.modal-footer button#Delete').click(function(){
+    $.ajax({
+        type: 'DELETE',
+        url: ('/player/delete/' + $player_id),
+        success: function(result) {
+            dmodal.find('.modal-body .alert-success').show().text(result.success + '!');
+            player.remove();
+
+            setTimeout(function(){
+                dmodal.modal('hide');
+            }, 1300);
+        },
+        error: function(result) {
+            dmodal.find('.modal-body .alert-danger').show().text('Something had gone wrong!');
+            console.error(result);                
+        }
+    });
+}); 
+//--

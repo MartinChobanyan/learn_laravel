@@ -66,14 +66,14 @@
       <div class="modal-body">
         <div class="alert alert-success text-success" style="display:none"></div>
         <div class="alert alert-danger text-danger" style="display:none"></div>
-        <form>
+        <form id="editor-form">
           <div class="form-group">
             <label for="player-name" class="col-form-label">Name:</label>
-            <input type="text" class="form-control" id="player-name" placeholder="PlayerName" min="8" maxlength="50" autocomplete="off">
+            <input type="text" name="name" class="form-control" id="player-name" placeholder="PlayerName" min="8" maxlength="50" autocomplete="off">
           </div>
           <div class="form-group">
             <label for="player-nick" class="col-form-label">Nick:</label>
-            <input type="text" class="form-control" id="player-nick" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off">
+            <input type="text" name="nick" class="form-control" id="player-nick" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off">
           </div>
         </form>
       </div>
