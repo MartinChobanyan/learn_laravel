@@ -85,7 +85,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $post_id)
     {
-        $post = Post::findOrFail($post_id);
+        $post = Post::where('author_id', Auth::id())
+            ->where('id', $post_id)
+            ->firstOrFail();
 
         $request->validate([
             'photo' => 'nullable|image|mimes:jpeg,bmp,png,gif,svg|max:4096|dimensions:min_width:100,min_height:100',
