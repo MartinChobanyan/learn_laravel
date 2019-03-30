@@ -24,11 +24,13 @@
         </thead>
         <tbody>
         @foreach($players as $player)
-            <tr id="{{ $player->id }}">
+            <tr id="{{ $player->id }}" @if(!$player->activated) style="background-color:lightgrey" @endif>
                 <td id="name">{{  $player->name   }}</td>
                 <td id="nick">{{  $player->nick   }}</td>
                 <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}">    Edit </button>  </td>
                 <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}"> Del </button> </td>
+                
+                @if(!$player->activated) <td>  <button data-toggle="modal" data-target="#contractUploadorModal" data-id="{{ $player->id }}"> Upload </button> </td> @endif
             </tr>
         @endforeach
         <tbody>
@@ -101,7 +103,32 @@
   </div>
 </div>
 
+<div class="modal fade" id="contractUploadorModal" tabindex="-1" role="dialog" aria-labelledby="deletorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editorModalLabel">Activate</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <div class="modal-body">
+        <div class="alert alert-success text-success" style="display:none"></div>
+        <div class="alert alert-danger text-danger" style="display:none"></div>
+        <form enctype="multipart/form-data">
+          <input type="file" name="contract">
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" id="Close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="Upload">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{{ asset('js/player-editor.js') }}"></script>
 <script src="{{ asset('js/player-deletor.js') }}"></script>
+<script src="{{ asset('js/player-contractUploador.js') }}"></script>
 
 @endsection

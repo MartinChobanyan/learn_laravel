@@ -1,4 +1,4 @@
-//Declaring & init
+// Declaring & init
 let
     dmodal = $('#deletorModal'),
     $post_id,

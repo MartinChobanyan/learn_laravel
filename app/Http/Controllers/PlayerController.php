@@ -37,6 +37,18 @@ class PlayerController extends Controller
         return response()->json(['success'  =>  "Player has been successfully deleted"]);
     } 
 
+    public function activate(Request $request, $player_id){
+        $request->validate([
+            'contract' => 'required|mimes:pdf|max:3072',
+        ]);
+
+        $player = Player::findOrFail($player_id);
+        $player->activated = true;
+        $player->save();
+        
+        return response()->json(['success'  =>  'Player has been successfully activated']);
+    }
+
     private function validator($request){
         return $this->validate(
             $request, 

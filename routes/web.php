@@ -26,15 +26,17 @@ Route::middleware('auth')->group(function () {
     Route::prefix('profile')->group(function(){
         Route::view('/', 'profile/profile')->name('profile');
 
-        Route::get('/change-password', 'UserController@changePassword')->name('change-password');
-        Route::post('/change-password', 'UserController@updatePassword');
+        Route::get('change-password', 'UserController@changePassword')->name('change-password');
+        Route::post('change-password', 'UserController@updatePassword');
         
-        Route::put('/edit/{user_id}', 'UserController@update');
+        Route::put('edit/{user_id}', 'UserController@update');
 
-        Route::get('/my-posts', 'PostController@index')->name('my-posts');
-        Route::post('/my-posts/create', 'PostController@store')->name('post-store');
-        Route::post('/my-posts/edit/{post_id}', 'PostController@update');
-        Route::delete('/my-posts/delete/{post_id}', 'PostController@delete');
+        Route::prefix('my-posts')->group(function(){
+            Route::get('/', 'PostController@index')->name('my-posts');
+            Route::post('create', 'PostController@store')->name('post-store');
+            Route::post('edit/{post_id}', 'PostController@update');
+            Route::delete('delete/{post_id}', 'PostController@delete');
+        });
     });
 
     Route::prefix('team')->group(function(){
@@ -46,6 +48,7 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('player')->group(function () {
         Route::post('create', 'PlayerController@store');
+        Route::post('activate/{player_id}', 'PlayerController@activate');
         Route::put('edit/{player_id}', 'PlayerController@update');
         Route::delete('delete/{player_id}', 'PlayerController@delete');
     });
