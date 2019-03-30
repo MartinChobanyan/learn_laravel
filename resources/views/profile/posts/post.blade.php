@@ -4,8 +4,8 @@
             {{-- <button class="btn btn-secondary btn-sm">&times;</button> --}}
         </div>
 
-        <div class="media-body" style="word-wrap:break-word;min-width:250;max-width:375">
-            <h4 id="post-title" class="ml-2">{{ $post->title }}</h4> <p class="text-right">By {{ $post->author->name }}</p>
+        <div class="media-body" style="word-wrap:break-word;min-width:250">
+            <h4 id="post-title" class="ml-2" style="max-width:700">{{ $post->title }}</h4> <p class="text-right">By {{ $post->author->name }}</p>
         
                 <p id="post-content" class="ml-1">{{ $post->content }}</p>
 
