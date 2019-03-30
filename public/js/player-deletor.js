@@ -1,4 +1,5 @@
-//Declaring & init
+;(function(){
+// Declaring & init
 let 
     dmodal = jQuery('#deletorModal'),
     $player_id,
@@ -12,7 +13,7 @@ dmodal.on('show.bs.modal', function (e) {
     //--
 
     // putting data into Model body
-    dmodal.find('#question').text('Do you really want to delete player ' + player.find('td#nick').text() + '?');
+    dmodal.find('#question').text('Do you really want to delete player ' + player.find('td#name').text() + '?');
     //--
 });
 
@@ -42,3 +43,4 @@ dmodal.find('.modal-footer button#Delete').click(function(){
     });
 }); 
 //--
+}());

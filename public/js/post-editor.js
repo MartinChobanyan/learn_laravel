@@ -1,3 +1,4 @@
+;(function(){
 // Declaring & init
 let 
     emodal = $('#editorModal'), 
@@ -89,3 +90,4 @@ function ErrorsHandler(errors){
     return errors_msg;
 }
 //--
+}());

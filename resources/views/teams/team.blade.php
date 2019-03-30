@@ -93,7 +93,7 @@
       <div class="modal-body">
         <div class="alert alert-success text-success" style="display:none"></div>
         <div class="alert alert-danger text-danger" style="display:none"></div>
-        <h5 id="question">Do you want to delete player?</h5>
+        <h5 id="question" style="word-wrap:break-word">Do you want to delete player?</h5>
       </div>
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" id="Close" data-dismiss="modal">Close</button>

@@ -1,3 +1,4 @@
+;(function(){
 // Declaring & init
 let
     dmodal = $('#deletorModal'),
@@ -44,3 +45,4 @@ dmodal.on('hide.bs.modal', function () {
     dmodal.find('.alert').hide();
 });
 //--
+}());

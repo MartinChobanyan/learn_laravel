@@ -1,3 +1,4 @@
+;(function(){
 // Declaring & init
 let 
     amodal = jQuery('#contractUploadorModal'),
@@ -42,3 +43,4 @@ amodal.find('.modal-footer button#Upload').click(function(){
     });
 }); 
 //--
+}());

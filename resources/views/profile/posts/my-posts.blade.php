@@ -57,7 +57,7 @@
             <div class="card">
                 <div class="card-header">Posts</div>
                 
-                <div class="card-body" style="margin-right:-50">
+                <div class="card-body">
                     @if(($posts = Auth::user()->posts)->isNotEmpty())
                         @foreach ($posts->reverse() as $post)
                             <div id="buttons-{{ $post->id }}" class="col-md-1 float-right ml-1">
