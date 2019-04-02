@@ -19,7 +19,7 @@ class CreatePlayersTable extends Migration
             $table->string('nick');
             $table->unsignedinteger('team_id');
             $table->string('secret');
-            $table->boolean('activated')->default(false);
+            $table->string('contract')->nullable();
             
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
 

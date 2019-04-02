@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'contracts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/player/contracts'),
+            'url' => env('APP_URL').'/player/contracts',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

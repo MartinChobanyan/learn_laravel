@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class PlayerController extends Controller
 {
@@ -37,16 +39,39 @@ class PlayerController extends Controller
         return response()->json(['success'  =>  "Player has been successfully deleted"]);
     } 
 
-    public function activate(Request $request, $player_id){
+    public function getContract($player_id){
+        $player = Player::findOrFail($player_id);
+        $file = Storage::get($player->contract);
+        $mimeType = Storage::mimeType($player->contract);
+
+        $response = Response::make($file);
+        $response->header('Content-Type', $mimeType);
+
+        return $response;
+    }
+
+    public function uploadContract(Request $request, $player_id){
         $request->validate([
             'contract' => 'required|mimes:pdf|max:3072',
         ]);
 
         $player = Player::findOrFail($player_id);
-        $player->activated = true;
+        if($player->contract) Storage::delete($player->contract);
+        $player->contract = $request->contract->store('player/contracts');
         $player->save();
         
-        return response()->json(['success'  =>  'Player has been successfully activated']);
+        return response()->json(['success'  =>  'Player`s contract has been successfully uploaded']);
+    }
+
+    public function deleteContract($player_id){
+        $player = Player::findOrFail($player_id);
+
+        Storage::delete($player->contract); 
+        unset($player->contract);
+        
+        $player->save();
+
+        return response()->json(['success' => 'Player`s contract has been successfully deleted']);
     }
 
     private function validator($request){

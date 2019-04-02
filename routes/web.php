@@ -48,8 +48,13 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('player')->group(function () {
         Route::post('create', 'PlayerController@store');
-        Route::post('activate/{player_id}', 'PlayerController@activate');
         Route::put('edit/{player_id}', 'PlayerController@update');
         Route::delete('delete/{player_id}', 'PlayerController@delete');
+
+        Route::prefix('contracts')->group(function(){
+            Route::get('{player_id}', 'PlayerController@getContract');
+            Route::post('upload/{player_id}', 'PlayerController@uploadContract');
+            Route::delete('delete/{player_id}', 'PlayerController@deleteContract');
+        });
     });
 });
