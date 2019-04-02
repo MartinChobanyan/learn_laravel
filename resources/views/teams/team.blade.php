@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         @foreach($players as $player)
-            <tr id="{{ $player->id }}" @if(!$player->activated) style="background-color:lightgrey" @endif>
+            <tr id="{{ $player->id }}" @if(!$player->contract) style="background-color:lightgrey" @endif>
                 <td id="name">{{  $player->name   }}</td>
                 <td id="nick">{{  $player->nick   }}</td>
                 <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}"> Edit </button>  </td>

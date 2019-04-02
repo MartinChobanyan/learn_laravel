@@ -67,7 +67,7 @@ class PlayerController extends Controller
         $player = Player::findOrFail($player_id);
 
         Storage::delete($player->contract); 
-        unset($player->contract);
+        $player->contract = null;
         
         $player->save();
 

@@ -20,7 +20,7 @@ function designShow(){
     modal_footer.hide().html('');
 
     modal_body.find('button#s').click(function(){
-        window.location.href = ('/player/contracts/' + $palayer_id);
+        window.open(('/player/contracts/' + $palayer_id), '_blank');
     });
     modal_body.find('button#u').click(function(){
         designUpload();
@@ -74,7 +74,7 @@ function designDelete(){
             url: ('/player/contracts/delete/' + $palayer_id),
             success: function(result) {
                 modal.find('.modal-body .alert-success').show().text(result.success + '!');
-                $('table tr#' + $palayer_id).removeAttr('style').find('td button[data-target="#contractModal"]').text('Upload');
+                $('table tr#' + $palayer_id).css('background-color', 'lightgrey').find('td button[data-target="#contractModal"]').text('Upload');
     
                 setTimeout(function(){
                     modal.modal('hide');
