@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -14,13 +14,22 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
+    public function getRolesAttribute()
+    {
+        return $this->attributes['roles'];
+    }
+
+    public function hasRole($role){
+        return in_array(strtolower($role), array_map('strtolower', explode(',', $this->getRolesAttribute())));
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'phone', 'skype', 'email', 'password',
+        'name', 'email', 'phone', 'skype', 'roles', 'password',
     ];
 
     /**

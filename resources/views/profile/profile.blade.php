@@ -16,16 +16,16 @@
                                     <h5 class="text-muted my-1" id="name">{{ Auth::user()->name }}</h5>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
+                                    <h5 class="my-1"><b>Email:</b></h5>
+                                    <h5 class="text-muted my-1" id="email">{{ Auth::user()->email }}</h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
                                     <h5 class="my-1"><b>Phone:</b></h5>
                                     <h5 class="text-muted my-1" id="phone">{{ Auth::user()->phone ? Auth::user()->phone : '' }}</h5>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
                                     <h5 class="my-1"><b>Skype:</b></h5>
                                     <h5 class="text-muted my-1" id="skype">{{ Auth::user()->skype ? Auth::user()->skype : '' }}</h5>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
-                                    <h5 class="my-1"><b>Email:</b></h5>
-                                    <h5 class="text-muted my-1" id="email">{{ Auth::user()->email }}</h5>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed p-1">
                                     <h5 class="my-1"><b>Password:</b></h5>
@@ -60,6 +60,10 @@
                     <div class="form-group">
                         <label for="user-name" class="col-form-label">Name:</label>
                         <input type="text" name="name" class="form-control" placeholder="UserName" min="8" maxlength="50" autocomplete="off" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email" class="col-form-label">Email:</label>
+                        <input type="text" name="email" class="form-control" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
                     </div> 
                     <div class="form-group">
                         <label for="user-phone" class="col-form-label">Phone:</label>
@@ -68,10 +72,6 @@
                     <div class="form-group">
                         <label for="user-skype" class="col-form-label">Skype:</label>
                         <input type="text" name="skype" class="form-control" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-email" class="col-form-label">Email:</label>
-                        <input type="text" name="email" class="form-control" placeholder="UserEmail" min="4" maxlength="255" autocomplete="off">
                     </div>
                 </form>
             </div>

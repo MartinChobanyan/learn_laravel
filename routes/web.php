@@ -39,11 +39,17 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    Route::middleware('role:admin')->prefix('users')->group(function() {
+        Route::get('/', 'UserController@getUsers')->name('users');
+        Route::put('/edit/{user_id}', 'UserController@update');
+        Route::delete('/delete/{user_id}', 'UserController@delete');
+    });
+
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');
         Route::post('create', 'TeamController@store');
         Route::get('delete/{team_id}', 'TeamController@delete');
-        Route::get('{id}', 'TeamController@show'); 
+        Route::get('{team_id}', 'TeamController@show'); 
     });
     
     Route::prefix('player')->group(function () {

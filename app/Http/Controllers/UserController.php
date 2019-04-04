@@ -46,6 +46,14 @@ class UserController extends Controller
         
         return response()->json(['success'  =>  "User's info has been successfully updated"]);
     }
+
+    public function delete($user_id){
+        User::findOrFail($user_id)->delete();
+    }
+    
+    public function getUsers(){
+        return view('users/users')->with('users', User::get());
+    }
     
     private function validator($request, $user_id){
         return $this->validate(

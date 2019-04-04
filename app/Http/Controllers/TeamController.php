@@ -16,12 +16,12 @@ class TeamController extends Controller
             ]);
     }
     
-    public function show($id){
-        $team = Team::findOrFail($id);
+    public function show($team_id){
+        $team = Team::findOrFail($team_id);
         $players = $team->players;
         
         return view('teams/team', [
-            'team_id' => $id,
+            'team_id' => $team_id,
             'team' => $team, 
             'players' => $players
         ]);
@@ -49,8 +49,8 @@ class TeamController extends Controller
         return redirect()->back();
     }
 
-    public function delete($team){
-        Team::findOrFail($team)->delete();
+    public function delete($team_id){
+        Team::findOrFail($team_id)->delete();
 
         return redirect()->back()->with('del-success', 'Team has been successfully deleted!');
     }
