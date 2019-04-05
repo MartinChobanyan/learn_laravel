@@ -33,22 +33,55 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Your password has been successfuly changed!');
     }
 
-    public function update(Request $request, $user_id){
+    public function profileUpdate(Request $request, $user_id){
         $user = User::findOrFail($user_id);
         $this->validator($request, $user_id);
-        
+
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->skype = $request->skype;
         $user->email = $request->email;
 
         $user->save();
-        
-        return response()->json(['success'  =>  "User's info has been successfully updated"]);
+
+        return response()->json(['success'  =>  'Profile has been successfully updated']);
+    }
+
+    public function userUpdate(Request $request, $user_id){
+        $user = User::findOrFail($user_id);
+        $this->validator($request, $user_id);
+        $request->validate([
+            'admin_role' => 'nullable',
+            'manager_role' => 'nullable',
+            'user_role' => 'required',
+        ]);
+        $roles = [
+            'admin' => $request->admin_role,
+            'manager' => $request->manager_role
+        ];
+
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->skype = $request->skype;
+        $user->email = $request->email;
+
+        foreach($roles as $role => $status){
+            if($status === 'on'){
+                if(!$user->hasRole($role)) $user->setRole($role);
+            }else{
+                $user->deleteRole($role);
+            }
+        }
+
+        $user->save();
+
+        return response()->json(['success'  =>  'User`s info. has been successfully updated']);
     }
 
     public function delete($user_id){
         User::findOrFail($user_id)->delete();
+
+        return response()->json(['success'  =>  'User has been successfully deleted']);
     }
     
     public function getUsers(){
@@ -60,9 +93,9 @@ class UserController extends Controller
             $request, 
             [
                 'name' => ['required', 'string', 'max:255', 'alpha'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user_id)],
                 'phone' => ['required_without:skype', 'nullable', 'min:6', 'max:20', Rule::unique('users')->ignore($user_id)],
-                'skype' => ['required_without:phone', 'string', 'nullable', 'max:100', Rule::unique('users')->ignore($user_id)], 
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user_id)]
+                'skype' => ['required_without:phone', 'string', 'nullable', 'max:100', Rule::unique('users')->ignore($user_id)],
             ],
             [
                 'required' => 'The :attribute field is required.',

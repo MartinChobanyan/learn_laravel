@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::get('change-password', 'UserController@changePassword')->name('change-password');
         Route::post('change-password', 'UserController@updatePassword');
         
-        Route::put('edit/{user_id}', 'UserController@update');
+        Route::put('edit/{user_id}', 'UserController@profileUpdate');
 
         Route::prefix('my-posts')->group(function(){
             Route::get('/', 'PostController@index')->name('my-posts');
@@ -39,9 +39,9 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::middleware('role:admin')->prefix('users')->group(function() {
+    Route::middleware('role:manager')->prefix('users')->group(function() {
         Route::get('/', 'UserController@getUsers')->name('users');
-        Route::put('/edit/{user_id}', 'UserController@update');
+        Route::put('/edit/{user_id}', 'UserController@userUpdate');
         Route::delete('/delete/{user_id}', 'UserController@delete');
     });
 

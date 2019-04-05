@@ -14,7 +14,10 @@ modal.on('show.bs.modal', function (e) {
 
     // putting data into Model inputs
     formInputs.map(function() {
-        this.value = $('tr#' + $user_id).find('td#' + this.name).text();
+        if(!(this.type === 'checkbox'))
+            this.value = $('tr#' + $user_id).find('td#' + this.name).text();
+        else
+            $(this).attr('checked', $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.name).is(':checked'));
     });
     //--
 });
@@ -43,7 +46,10 @@ modal.find('.modal-footer button#Save').click(function(){
 
             // Updating user data in profile
             formInputs.map(function() {
-                $('tr#' + $user_id).find('td#' + this.name).text(this.value);
+                if(!(this.type === 'checkbox'))
+                    $('tr#' + $user_id).find('td#' + this.name).text(this.value);
+                else
+                $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.name).attr('checked', $(this).is(':checked'));
             });
         },
         error: function(result) {
@@ -56,10 +62,8 @@ modal.find('.modal-footer button#Save').click(function(){
 
 
 // Modal inputs logic
-formInputs.map(function() {
-    $(this).mouseup(function(){
-        InputsLogicOnMouseup(this);
-    });
+formInputs.on('click', function(){
+    InputsLogicOnMouseup(this);
 });
 //--
 

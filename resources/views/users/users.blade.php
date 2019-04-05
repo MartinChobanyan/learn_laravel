@@ -1,6 +1,18 @@
 @extends('tplt')
 
 @section('body')
+    <style>
+        .custom-control-label{
+            padding-top: 1.5
+        }
+        .custom-control-label::before, 
+        .custom-control-label::after {
+            left: -19;
+            width: 1.05rem;
+            height: 1.05rem;
+        }
+    </style>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-auto">
@@ -21,7 +33,22 @@
                                 <td id="email">{{ $user->email }}</td>
                                 <td id="phone">{{ $user->phone }}</td>
                                 <td id="skype">{{ $user->skype }}</td>
-                                <td id="roles">{{ $user->roles }}</td>
+                                <td id="roles">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="user_role" disabled {{ $user->hasRole('user') ? 'checked' : '' }}>
+                                            <label class="custom-control-label">User</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="manager_role" disabled {{ $user->hasRole('manager') ? 'checked' : '' }}>
+                                            <label class="custom-control-label">Manager</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="admin_role" disabled {{ $user->hasRole('admin') ? 'checked' : '' }}>
+                                            <label class="custom-control-label">Admin</label>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $user->id }}"> Edit </button>  </td>
                                 <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $user->id }}">  Del </button> </td>
                             </tr>
@@ -61,10 +88,23 @@
                             <label for="user-skype" class="col-form-label">Skype:</label>
                             <input type="text" name="skype" class="form-control" placeholder="UserSkype" min="4" maxlength="100" autocomplete="off">
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="user-roles" class="col-form-label">Roles:</label>
-                            <input name="roles" class="form-control">
-                        </div> --}}
+                        <div class="form-group">
+                            <label for="user-roles" class="col-form-label pb-0">Roles:</label>
+                            <div class="form-row ml-1">
+                                <div class="custom-control custom-checkbox ml-1">
+                                    <input type="checkbox" class="custom-control-input" id="user" name="user_role">
+                                    <label class="custom-control-label" for="user">User</label>
+                                </div>
+                                <div class="custom-control custom-checkbox ml-1">
+                                    <input type="checkbox" class="custom-control-input" id="manager" name="manager_role">
+                                    <label class="custom-control-label" for="manager">Manager</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="admin" name="admin_role">
+                                    <label class="custom-control-label" for="admin">Admin</label>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
