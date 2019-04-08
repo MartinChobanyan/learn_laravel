@@ -92,15 +92,15 @@
                             <label for="user-roles" class="col-form-label pb-0">Roles:</label>
                             <div class="form-row ml-1">
                                 <div class="custom-control custom-checkbox ml-1">
-                                    <input type="checkbox" class="custom-control-input" id="user" name="user_role">
+                                    <input type="checkbox" class="custom-control-input" id="user" name="roles[]" value="user">
                                     <label class="custom-control-label" for="user">User</label>
                                 </div>
                                 <div class="custom-control custom-checkbox ml-1">
-                                    <input type="checkbox" class="custom-control-input" id="manager" name="manager_role">
+                                    <input type="checkbox" class="custom-control-input" id="manager" name="roles[]" value="manager">
                                     <label class="custom-control-label" for="manager">Manager</label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="admin" name="admin_role">
+                                    <input type="checkbox" class="custom-control-input" id="admin" name="roles[]" value="admin">
                                     <label class="custom-control-label" for="admin">Admin</label>
                                 </div>
                             </div>

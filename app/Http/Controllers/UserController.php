@@ -9,10 +9,6 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
     public function changePassword(){
         return view('auth.passwords.authreset');
     }
@@ -50,28 +46,8 @@ class UserController extends Controller
     public function userUpdate(Request $request, $user_id){
         $user = User::findOrFail($user_id);
         $this->validator($request, $user_id);
-        $request->validate([
-            'admin_role' => 'nullable',
-            'manager_role' => 'nullable',
-            'user_role' => 'required',
-        ]);
-        $roles = [
-            'admin' => $request->admin_role,
-            'manager' => $request->manager_role
-        ];
 
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->skype = $request->skype;
-        $user->email = $request->email;
-
-        foreach($roles as $role => $status){
-            if($status === 'on'){
-                if(!$user->hasRole($role)) $user->setRole($role);
-            }else{
-                $user->deleteRole($role);
-            }
-        }
+        $user->fill($request->all());
 
         $user->save();
 

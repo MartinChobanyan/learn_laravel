@@ -3,36 +3,25 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
-    protected $priority_list;
-
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param  string $roles
+     * @param  string requiredRoles
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, ...$requiredRoles)
     {
-        $roles = array_slice(func_get_args(), 2);
-        $this->priority_list = User::$priority_list;
+        $userRoles = Auth::user()->roles;
+        $inersectRoles = array_intersect($requiredRoles, $userRoles);
 
-        if($request->user()->priority < $this->getAllowedPriority($roles)) return redirect('/');
+        if(empty($inersectRoles)) return redirect('/');
 
         return $next($request);
-    }
-
-    private function getAllowedPriority($roles){
-        $a_p=99999;
-        foreach($roles as $role){
-            $p = array_search($role, $this->priority_list);
-            if($a_p >= $p) $a_p = $p;  
-        }
-        return $a_p;
     }
 }

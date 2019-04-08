@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function(){
     return view('home', ['posts' => App\Models\Post::get()]);
 });
@@ -22,7 +18,7 @@ Route::get('/', function(){
 Route::get('post/image/{post_id}', 'PostController@getPhoto');
 
 Auth::routes();
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role:user,manager,admin')->group(function () {
     Route::prefix('profile')->group(function(){
         Route::view('/', 'profile/profile')->name('profile');
 
@@ -39,7 +35,7 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::middleware('role:manager')->prefix('users')->group(function() {
+    Route::middleware('role:manager,admin')->prefix('users')->group(function() {
         Route::get('/', 'UserController@getUsers')->name('users');
         Route::put('/edit/{user_id}', 'UserController@userUpdate');
         Route::delete('/delete/{user_id}', 'UserController@delete');

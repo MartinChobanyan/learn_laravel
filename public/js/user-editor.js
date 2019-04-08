@@ -17,7 +17,7 @@ modal.on('show.bs.modal', function (e) {
         if(!(this.type === 'checkbox'))
             this.value = $('tr#' + $user_id).find('td#' + this.name).text();
         else
-            $(this).attr('checked', $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.name).is(':checked'));
+            $(this).attr('checked', $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.id + '_role').is(':checked'));
     });
     //--
 });
@@ -49,7 +49,7 @@ modal.find('.modal-footer button#Save').click(function(){
                 if(!(this.type === 'checkbox'))
                     $('tr#' + $user_id).find('td#' + this.name).text(this.value);
                 else
-                $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.name).attr('checked', $(this).is(':checked'));
+                $('tr#' + $user_id).find('td#roles input[type=checkbox]#' + this.id + '_role').attr('checked', $(this).is(':checked'));
             });
         },
         error: function(result) {
