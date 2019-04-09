@@ -22,14 +22,10 @@ class User extends Authenticatable
         return in_array($role, $this->roles);
     }
 
-    public function setRole($roles){
+    public function setRolesAttribute($roles){
         $this->attributes['roles'] = implode(',', $roles);
     }
-
-    public function deleteRole($role){
-        $this->attributes['roles'] = str_replace(','.$role, '', $this->attributes['roles']);
-    }
-    
+        
     /**
      * The attributes that are mass assignable.
      *

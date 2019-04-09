@@ -32,7 +32,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                         <a class="dropdown-item" href="{{ route('my-posts') }}">My Posts</a>
-                        @if(Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">Users</a> @endif
+                        @if(Auth::user()->hasRole('manager') || Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">Users</a> @endif
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="return logout()">Logout</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/user-editor.js') }}"></script>
     <script src="{{ asset('js/user-deletor.js') }}"></script>
 @endsection
