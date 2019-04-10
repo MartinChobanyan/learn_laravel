@@ -70,7 +70,7 @@ formInputs.on('click', function(){
 // Functions
 function InputsLogicOnMouseup(input){
     formInputs.removeClass('is-valid'); // Putting valid inputs indicators(If there are exist) to their initial state
-    $(input).removeClass('is-invalid'); // Putting input indicator to its initial state
+    $(':input[name="' + input.name + '"]').removeClass('is-invalid'); // Putting input indicator to its initial state
     modal.find('.alert-danger span[for="' + input.name + '"]').remove(); // removing errors of input
     if(modal.find('.alert-danger').text() === '') modal.find('.modal-body .alert-danger').hide(); // Hidding Danger alert, if it's empty
     if(modal.find('.alert-success').is(':visible')) modal.find('.modal-body .alert-success').hide(); // Hidding Success alert, if it's visible
@@ -78,10 +78,14 @@ function InputsLogicOnMouseup(input){
 
 function ErrorsHandler(errors){
     let errors_msg = '';
-    formInputs.map((_index, input) => {
-        if(errors[input.name]){
+    formInputs.map((index, input) => {
+        if(errors[input.name.replace('[]', '')]){
+            console.log(input.name);
             $(input).addClass('is-invalid');
-            errors[input.name].forEach(function(error) { errors_msg += '<span for="' + input.name + '">' + '* ' + error + '<br></span>'; });
+            errors[input.name.replace('[]', '')].forEach(function(error){
+                if(index+1 < formInputs.length && formInputs[index+1].name === input.name) return;
+                errors_msg += '<span for="' + input.name + '">' + '* ' + error + '<br></span>'; 
+            });
         } else {
             $(input).addClass('is-valid');
         }

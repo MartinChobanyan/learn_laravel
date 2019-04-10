@@ -45,6 +45,7 @@ class UserController extends Controller
 
     public function userUpdate(Request $request, $user_id){
         $user = User::findOrFail($user_id);
+        $request->validate(['roles' => 'required']);
         $this->validator($request, $user_id);
 
         $user->fill($request->all());
