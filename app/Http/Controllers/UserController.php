@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use App\Models\User;
 
 class UserController extends Controller
@@ -45,8 +46,7 @@ class UserController extends Controller
 
     public function userUpdate(Request $request, $user_id){
         $user = User::findOrFail($user_id);
-        $request->validate(['roles' => 'required']);
-        $this->validator($request, $user_id);
+        $this->validator($request, $user_id, 'roles');
 
         $user->fill($request->all());
 
@@ -65,15 +65,17 @@ class UserController extends Controller
         return view('users/users')->with('users', User::get());
     }
     
-    private function validator($request, $user_id){
+    private function validator(Request $request, $user_id, $additionalFields = null, $defaultFields = ['name', 'email', 'phone', 'skype']){
         return $this->validate(
             $request, 
-            [
+            collect([
                 'name' => ['required', 'string', 'max:255', 'alpha'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user_id)],
                 'phone' => ['required_without:skype', 'nullable', 'min:6', 'max:20', Rule::unique('users')->ignore($user_id)],
                 'skype' => ['required_without:phone', 'string', 'nullable', 'max:100', Rule::unique('users')->ignore($user_id)],
-            ],
+                // additional fields
+                'roles' => ['required'],
+            ])->intersectByKeys(collect($defaultFields)->merge($additionalFields))->toArray(),
             [
                 'required' => 'The :attribute field is required.',
                 'between' => 'The :attribute value :input is not between :min - :max.',

@@ -80,7 +80,6 @@ function ErrorsHandler(errors){
     let errors_msg = '';
     formInputs.map((index, input) => {
         if(errors[input.name.replace('[]', '')]){
-            console.log(input.name);
             $(input).addClass('is-invalid');
             errors[input.name.replace('[]', '')].forEach(function(error){
                 if(index+1 < formInputs.length && formInputs[index+1].name === input.name) return;
