@@ -75,7 +75,7 @@ class UserController extends Controller
                 'skype' => ['required_without:phone', 'string', 'nullable', 'max:100', Rule::unique('users')->ignore($user_id)],
                 // additional fields
                 'roles' => ['required'],
-            ])->intersectByKeys(collect($defaultFields)->merge($additionalFields))->toArray(),
+            ])->intersectByKeys(collect($defaultFields)->merge($additionalFields)->flip())->toArray(),
             [
                 'required' => 'The :attribute field is required.',
                 'between' => 'The :attribute value :input is not between :min - :max.',
