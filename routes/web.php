@@ -27,7 +27,7 @@ Route::middleware('auth', 'role:user,manager,admin')->group(function () {
         
         Route::put('edit/{user_id}', 'UserController@profileUpdate');
 
-        Route::prefix('my-posts')->group(function(){
+        Route::middleware('role:manager,admin')->prefix('my-posts')->group(function(){
             Route::get('/', 'PostController@index')->name('my-posts');
             Route::post('create', 'PostController@store')->name('post-store');
             Route::post('edit/{post_id}', 'PostController@update');
@@ -43,12 +43,14 @@ Route::middleware('auth', 'role:user,manager,admin')->group(function () {
 
     Route::prefix('team')->group(function(){
         Route::get('/', 'TeamController@index');
-        Route::post('create', 'TeamController@store');
-        Route::get('delete/{team_id}', 'TeamController@delete');
-        Route::get('{team_id}', 'TeamController@show'); 
+        Route::get('{team_id}', 'TeamController@show');
+        Route::middleware('role:manager,admin')->group(function () {
+            Route::post('create', 'TeamController@store');
+            Route::get('delete/{team_id}', 'TeamController@delete');
+        });
     });
     
-    Route::prefix('player')->group(function () {
+    Route::middleware('role:manager,admin')->prefix('player')->group(function () {
         Route::post('create', 'PlayerController@store');
         Route::put('edit/{player_id}', 'PlayerController@update');
         Route::delete('delete/{player_id}', 'PlayerController@delete');

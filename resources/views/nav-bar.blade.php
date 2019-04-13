@@ -6,10 +6,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">  Home   </a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/team"> Teams </a>
+                <a class="nav-link" href="/team">Teams</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -31,8 +31,8 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                        <a class="dropdown-item" href="{{ route('my-posts') }}">My Posts</a>
-                        @if(Auth::user()->hasRole('manager') || Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">Users</a> @endif
+                        @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager')) <a class="dropdown-item" href="{{ route('my-posts') }}">My Posts</a> @endif
+                        @if(Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">Users</a> @endif
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="return logout()">Logout</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
