@@ -20,7 +20,7 @@
               <!-- <th>    ID  </th> -->
               <th scope="col" class="text-center">    Name    </th>
               <th scope="col" class="text-center">    Nick    </th>
-              @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager'))
+              @if(Auth::user()->hasRole('manager,admin'))
                 <th scope="cols" class="text-center" colspan="2">  Options </th>
                 <th scope="col" class="text-center">  Contract </th>
               @endif
@@ -28,13 +28,13 @@
         </thead>
         <tbody>
         @foreach($players as $player)
-          @if(!(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager') && !$player->contract)) 
+          @if(!Auth::user()->hasRole('manager,admin') && !$player->contract) 
             @continue 
           @endif
           <tr id="{{ $player->id }}" @if(!$player->contract) style="background-color:lightgrey" @endif>
             <td id="name">{{  $player->name   }}</td>
             <td id="nick">{{  $player->nick   }}</td>
-            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager'))
+            @if(Auth::user()->hasRole('manager,admin'))
               <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}"> Edit </button>  </td>
               <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}">  Del </button> </td>
               <td>  <button data-toggle="modal" data-target="#contractModal" data-id="{{ $player->id }}">{{ $player->contract ? 'Show' : 'Upload' }}</button> </td>
@@ -47,7 +47,7 @@
 <br>
 <hr>
 
-@if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager'))
+@if(Auth::user()->hasRole('manager,admin'))
   @includeWhen($errors->any(), 'errors')
 
   <form class="form-inline" method="POST" action="/player/create">

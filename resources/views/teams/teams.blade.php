@@ -11,7 +11,7 @@
         @foreach($teams as $team)
             <div class="row mb-1 ml-1">
                 <a class="list-group-item text-center" href="/team/{{ $team->id }}">   {{ $team->name }}   </a>
-                @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager'))  
+                @if(Auth::user()->hasRole('manager,admin'))  
                     <div><button class="btn btn-secondary btn-sm" onclick="location.href='/team/delete/{{ $team->id }}'">Del</button></div>
                 @endif
             </div>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-@if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('manager'))
+@if(Auth::user()->hasRole('manager,admin'))
     <br>
     <hr>
     

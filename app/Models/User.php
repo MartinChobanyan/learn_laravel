@@ -18,8 +18,9 @@ class User extends Authenticatable
         return explode(',', $this->attributes['roles']);
     }
 
-    public function hasRole($role){
-        return in_array($role, $this->roles);
+    public function hasRole($roles){
+        foreach(explode(',', $roles) as $role) if(in_array($role, $this->roles)) return TRUE;
+        return FALSE;
     }
 
     public function setRolesAttribute($roles){
