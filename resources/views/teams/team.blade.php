@@ -56,10 +56,10 @@
 
       <div class="form-row" style="margin: 2px">
           <div class="col-md">
-              <input class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
+              <input class="form-control" type="text" name="name" value="{{ old('name') ? old('name') : Rand::get('male', '', 4, 15)->name() }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
           </div>
           <div class="col-md">
-              <input class="form-control" type="text" name="nick" value="{{ old('nick') }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
+              <input class="form-control" type="text" name="nick" value="{{ old('nick') ? old('nick') : Rand::get('male', '', 4, 15)->surname() }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
           </div>
       </div>
           <button class="btn btn-primary btn-sm" type="submit">  Create New Player   </button>

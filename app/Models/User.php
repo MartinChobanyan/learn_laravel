@@ -19,8 +19,7 @@ class User extends Authenticatable
     }
 
     public function hasRole($roles){
-        foreach(explode(',', $roles) as $role) if(in_array($role, $this->roles)) return TRUE;
-        return FALSE;
+        return array_intersect($this->roles, explode(',', $roles));
     }
 
     public function setRolesAttribute($roles){
