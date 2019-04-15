@@ -17,10 +17,12 @@ class CreatePlayersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('nick');
+            $table->unsignedinteger('role_id');
             $table->unsignedinteger('team_id');
             $table->string('secret');
             $table->string('contract')->nullable();
             
+            // $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamp('created_at')->nullable();

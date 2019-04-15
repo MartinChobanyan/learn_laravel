@@ -17,7 +17,8 @@ class RolesTableSeeder extends Seeder
 
         foreach($role_arr as $role){
             Role::create([
-                "role" => $role,
+                'name' => $role,
+                'salary' => random_int(100000, 1000000),
             ]);
         }
     }

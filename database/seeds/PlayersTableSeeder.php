@@ -14,8 +14,9 @@ class PlayersTableSeeder extends Seeder
     {
         for($i=0; $i<10; $i++){
             Player::create([
-                'name' => str_random(10),
-                'nick' => str_random(10),
+                'name' => Rand::get('male', '', 4, 15)->name(),
+                'nick' => Rand::get('male', '', 4, 15)->surname(),
+                'role_id' => ($i % 6 + 1),
                 'team_id' => random_int(1, 5),
                 'secret' => bcrypt('secret'),
             ]);

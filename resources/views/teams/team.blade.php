@@ -20,6 +20,8 @@
               <!-- <th>    ID  </th> -->
               <th scope="col" class="text-center">    Name    </th>
               <th scope="col" class="text-center">    Nick    </th>
+              <th scope="col" class="text-center">    Roles    </th>
+              <th scope="col" class="text-center">    Salary    </th>
               @if(Auth::user()->hasRole('manager,admin'))
                 <th scope="cols" class="text-center" colspan="2">  Options </th>
                 <th scope="col" class="text-center">  Contract </th>
@@ -34,6 +36,8 @@
           <tr id="{{ $player->id }}" @if(!$player->contract) style="background-color:lightgrey" @endif>
             <td id="name">{{  $player->name   }}</td>
             <td id="nick">{{  $player->nick   }}</td>
+            <td id="role">{{  $player->role->name }}</td>
+            <td id="salary">{{  $player->role->salary.'$' }}</td>
             @if(Auth::user()->hasRole('manager,admin'))
               <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}"> Edit </button>  </td>
               <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}">  Del </button> </td>

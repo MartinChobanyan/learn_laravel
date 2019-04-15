@@ -8,8 +8,8 @@ class Role extends Model
 {
     //
     public function players(){
-        return $this->belongsToMany(Player::class);
+        return $this->hasMany(Player::class);
     }
 
-    protected $fillable = ['role'];
+    protected $fillable = ['role', 'salary'];
 }
