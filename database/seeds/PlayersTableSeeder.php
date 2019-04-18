@@ -16,7 +16,7 @@ class PlayersTableSeeder extends Seeder
             Player::create([
                 'name' => Rand::get('male', '', 4, 15)->name(),
                 'nick' => Rand::get('male', '', 4, 15)->surname(),
-                'role_id' => ($i % 6 + 1),
+                'role_id' => random_int(1, 7),
                 'team_id' => random_int(1, 5),
                 'secret' => bcrypt('secret'),
             ]);

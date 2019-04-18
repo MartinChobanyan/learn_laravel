@@ -11,7 +11,7 @@ class Player extends Model
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
     public function role(){
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(PlayerRole::class, 'role_id', 'id');
     }
 
     protected $fillable = ['name', 'nick', 'team_id', 'secret', 'contract'];

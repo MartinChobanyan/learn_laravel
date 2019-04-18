@@ -22,7 +22,7 @@ class CreatePlayersTable extends Migration
             $table->string('secret');
             $table->string('contract')->nullable();
             
-            // $table->foreign('role_id')->references('id')->on('roles');
+            //$table->foreign('role_id')->references('id')->on('players_roles');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamp('created_at')->nullable();

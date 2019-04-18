@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Role;
+use App\Models\PLayerRole;
 
-class RolesTableSeeder extends Seeder
+class PlayersRolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
