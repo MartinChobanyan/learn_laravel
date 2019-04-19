@@ -16,9 +16,8 @@ class PlayersRolesTableSeeder extends Seeder
         $role_arr = ['goalkeeper','defender','midfielder','attacker','skipper','substitute'];
 
         foreach($role_arr as $role){
-            Role::create([
+            PlayerRole::create([
                 'name' => $role,
-                'salary' => random_int(100000, 1000000),
             ]);
         }
     }

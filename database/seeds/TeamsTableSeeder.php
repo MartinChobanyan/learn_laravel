@@ -17,7 +17,6 @@ class TeamsTableSeeder extends Seeder
                 'name' => str_random(10),
                 'losung' => str_random(10),
                 'stadium_id' => random_int(1, 5),
-                'secret' => bcrypt('secret'),
             ]);
         }
     }

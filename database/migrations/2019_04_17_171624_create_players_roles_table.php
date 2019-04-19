@@ -16,9 +16,6 @@ class CreatePlayersRolesTable extends Migration
         Schema::create('players_roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->double('salary');
-
-            
 
             $table->timestamps();
         });

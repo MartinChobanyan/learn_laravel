@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Player;
+use App\Models\PLayerRole;
 
 class PlayersTableSeeder extends Seeder
 {
@@ -12,13 +13,13 @@ class PlayersTableSeeder extends Seeder
      */
     public function run()
     {
+        $role = PLayerRole::get();
         for($i=0; $i<10; $i++){
             Player::create([
                 'name' => Rand::get('male', '', 4, 15)->name(),
                 'nick' => Rand::get('male', '', 4, 15)->surname(),
-                'role_id' => random_int(1, 7),
+                'role_id' => ($i % $role->count() + 1),
                 'team_id' => random_int(1, 5),
-                'secret' => bcrypt('secret'),
             ]);
         }
     }

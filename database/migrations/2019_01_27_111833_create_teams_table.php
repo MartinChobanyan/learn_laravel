@@ -18,7 +18,6 @@ class CreateTeamsTable extends Migration
             $table->string('name');
             $table->string('losung');
             $table->unsignedinteger('stadium_id');
-            $table->string('secret');
             
             $table->foreign('stadium_id')->references('id')->on('stadiums')->onDelete('cascade')->onUpdate('cascade');
 

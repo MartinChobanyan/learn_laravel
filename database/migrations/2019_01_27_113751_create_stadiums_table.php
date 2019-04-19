@@ -19,7 +19,6 @@ class CreateStadiumsTable extends Migration
             $table->integer('max_visitors');
             $table->integer('width');
             $table->integer('length');
-            $table->string('secret');
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

@@ -37,7 +37,7 @@
             <td id="name">{{  $player->name   }}</td>
             <td id="nick">{{  $player->nick   }}</td>
             <td id="role">{{  $player->role->name }}</td>
-            <td id="salary">{{  $player->role->salary.'$' }}</td>
+            <td id="salary">{{  ($player->role->salary ? $player->role->salary : 0).'$' }}</td>
             @if(Auth::user()->hasRole('manager,admin'))
               <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}"> Edit </button>  </td>
               <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}">  Del </button> </td>
