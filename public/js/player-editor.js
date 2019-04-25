@@ -15,7 +15,9 @@ modal.on('show.bs.modal', function (e) {
 
     // putting data into Model inputs
     formInputs.map(function() {
-        this.value = player.find('td#' + this.name).text();
+        if(this.name === 'role_id'){
+            $(this).val($(this).find('option:contains("' + player.find('td#role').text() + '")').val());
+        }else this.value = this.name === 'salary' ? parseInt(player.find('td#' + this.name).text()) : player.find('td#' + this.name).text();
     });
     //--
 });
@@ -39,9 +41,11 @@ modal.find('.modal-footer button#Save').click(function(){
 
             modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
-            // Updating player data in team's players table
+            // Updating player data == ===sd-=in team's players table
             formInputs.map(function() {
-                player.find('td#' + this.name).text(this.value);
+                if(this.name === 'role_id'){
+                    player.find('td#role').text($(this).find('option[value=' + this.value + ']').text());
+                }else player.find('td#' + this.name).text(this.value + (this.name === 'salary' ? '.00$' : ''));
             });
         },
         error: function(result) {

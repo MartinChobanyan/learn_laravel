@@ -37,7 +37,7 @@
             <td id="name">{{  $player->name   }}</td>
             <td id="nick">{{  $player->nick   }}</td>
             <td id="role">{{  $player->role->name }}</td>
-            <td id="salary">{{  ($player->role->salary ? $player->role->salary : 0).'$' }}</td>
+            <td id="salary">{{  intval($player->salary).'.00$' }}</td>
             @if(Auth::user()->hasRole('manager,admin'))
               <td>  <button data-toggle="modal" data-target="#editorModal" data-id="{{ $player->id }}"> Edit </button>  </td>
               <td>  <button data-toggle="modal" data-target="#deletorModal" data-id="{{ $player->id }}">  Del </button> </td>
@@ -59,11 +59,32 @@
       <input type="hidden" name="team_id" value="{{ $team_id }}">
 
       <div class="form-row" style="margin: 2px">
-          <div class="col-md">
-              <input class="form-control" type="text" name="name" value="{{ old('name') ? old('name') : Rand::get('male', '', 4, 15)->name() }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
+          <div class="col-xs">
+            <input class="form-control" type="text" name="name" value="{{ old('name') ? old('name') : Rand::get('male', '', 5, 15)->name() }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
           </div>
-          <div class="col-md">
-              <input class="form-control" type="text" name="nick" value="{{ old('nick') ? old('nick') : Rand::get('male', '', 4, 15)->surname() }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
+          <div class="col-xs">
+            <input class="form-control" type="text" name="nick" value="{{ old('nick') ? old('nick') : Rand::get('male', '', 5, 15)->surname() }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
+          </div>
+          <div class="col-xs">
+            <select class="form-control" name="role_id" required>
+              <option value="">   Role    </option> 
+              @foreach($roles as $role)
+                  <option value="{{ $role->id }}" 
+                      @if(old('role_id') == $role->id))
+                          selected
+                      @endif
+                  >{{ $role->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-xs">
+            <div class="input-group">
+              <input class="form-control" type="number" name="salary" value="{{ old('salary') }}" placeholder="PlayerSalary" min="0" max="999999999999" maxlength="12" autocomplete="off">
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+                <span class="input-group-text">$</span>
+              </div>
+            </div>
           </div>
       </div>
           <button class="btn btn-primary btn-sm" type="submit">  Create New Player   </button>
@@ -89,6 +110,28 @@
             <div class="form-group">
               <label for="player-nick" class="col-form-label">Nick:</label>
               <input type="text" name="nick" class="form-control" id="player-nick" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="player-role" class="col-form-label">Role:</label>
+              <select class="form-control" name="role_id">
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}" 
+                        @if(old('role_id') == $role->id))
+                            selected
+                        @endif
+                    >{{ $role->name }}</option>
+                @endforeach
+            </select>
+            </div>
+            <div class="form-group">
+              <label for="player-salary" class="col-form-label">Salary:</label>
+              <div class="input-group">
+                <input type="number" name="salary" class="form-control" id="player-salary" placeholder="PlayerSalary" min="0" max="999999999999" maxlength="12" autocomplete="off">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                  <span class="input-group-text">$</span>
+                </div>
+              </div>
             </div>
           </form>
         </div>

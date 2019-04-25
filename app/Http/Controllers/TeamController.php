@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Stadium;
+use App\Models\PlayerRole;
 
 class TeamController extends Controller
 {
@@ -19,11 +20,13 @@ class TeamController extends Controller
     public function show($team_id){
         $team = Team::findOrFail($team_id);
         $players = $team->players;
-        
+        $roles = PlayerRole::get();
+
         return view('teams/team', [
             'team_id' => $team_id,
             'team' => $team, 
-            'players' => $players
+            'players' => $players,
+            'roles' => $roles
         ]);
     }
 
@@ -42,7 +45,6 @@ class TeamController extends Controller
         $team->name = $request->team_name;
         $team->losung = $request->team_losung;
         $team->stadium_id = $stadium->id;
-        $team->secret = bcrypt('secret');
 
         $team->save();
         

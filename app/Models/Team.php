@@ -14,6 +14,6 @@ class Team extends Model
         return $this->hasMany(Player::class, 'team_id', 'id');
     }
 
-    protected $fillable = ['name', 'losung', 'stadium_id', 'secret'];
+    protected $fillable = ['name', 'losung', 'stadium_id'];
     protected $hidden = ['secret'];
 }

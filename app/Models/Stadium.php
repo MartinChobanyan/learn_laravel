@@ -11,7 +11,7 @@ class Stadium extends Model
         return $this->hasOne(Team::class);
     }
 
-    protected $fillable = ['name', 'max_visitors', 'width', 'length', 'secret'];
+    protected $fillable = ['name', 'max_visitors', 'width', 'length'];
     protected $table = 'stadiums';
     protected $hidden = ['secret'];
 }

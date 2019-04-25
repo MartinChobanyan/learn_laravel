@@ -13,9 +13,10 @@ class PlayerController extends Controller
         $this->validator($request);
 
         $player = new Player;
-        $player->fill($request->all());
-        $player->secret = bcrypt('secret');
         
+        $player->fill($request->all());
+        $player->salary = $request->salary;
+
         $player->save();
 
         return redirect('/team/' . $player->team_id);
@@ -27,16 +28,17 @@ class PlayerController extends Controller
         $player = Player::findOrFail($player_id);
 
         $player->fill($request->all());
-
+        $player->salary = $request->salary;
+        
         $player->save();
 
-        return response()->json(['success'  =>  "Player's info has been successfully updated"]);
+        return response()->json(['success'  =>  'Player`s info has been successfully updated']);
     }
 
     public function delete($player_id){
         Player::findOrFail($player_id)->delete();
 
-        return response()->json(['success'  =>  "Player has been successfully deleted"]);
+        return response()->json(['success'  =>  'Player has been successfully deleted']);
     } 
 
     public function getContract($player_id){
@@ -78,11 +80,14 @@ class PlayerController extends Controller
         return $this->validate(
             $request, 
             [
-                'name' => 'required|min:8|max:50|alpha',
-                'nick' => 'required|min:4|max:15|alpha'
+                'name' => 'required|min:4|max:50|alpha',
+                'nick' => 'required|min:4|max:15|alpha',
+                'role_id' => 'required',
+                'salary' => 'nullable|min:0|max:999999999999'
             ],
             [
                 'required' => 'The :attribute field is required.',
+                'role_id.required' => 'The role must be selected appropriately.',
                 'between' => 'The :attribute value :input is not between :min - :max.',
                 'alpha' => 'The :attribute value mast contain only latyn letters.'
             ]
