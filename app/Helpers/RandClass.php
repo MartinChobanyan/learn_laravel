@@ -5,6 +5,7 @@ namespace App\Helpers;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use function GuzzleHttp\json_decode;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class RandClass{
     private $client;
@@ -29,7 +30,14 @@ class RandClass{
             'minlen' => $minlen,
             'maxlen' => $maxlen
         ];
-        $this->data = json_decode($this->client->get($this->link.http_build_query(array_filter($parameters)))->getBody(), true);
+        try{
+            $this->data = json_decode($this->client->get($this->link.http_build_query(array_filter($parameters)))->getBody(true), true);
+        }catch(ClientErrorResponseException $e){
+            $this->data = [
+                'name' => 'Vasya', 
+                'surname' => 'Pumpkin'
+            ];
+        }
         return $this;
     }
     public function name(){
