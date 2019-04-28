@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\Stadium;
 use App\Models\PlayerRole;
+use App\Facades\RandClass;
 
 class TeamController extends Controller
 {
@@ -26,7 +27,8 @@ class TeamController extends Controller
             'team_id' => $team_id,
             'team' => $team, 
             'players' => $players,
-            'roles' => $roles
+            'roles' => $roles,
+            'rand_player' => RandClass::get('male', '', 5, 15)
         ]);
     }
 

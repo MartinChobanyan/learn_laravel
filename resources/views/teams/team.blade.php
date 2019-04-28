@@ -12,9 +12,9 @@
     <hr>
     players:
 </h4>
-<br>
-<div class="col-md-1 col-md-offset-3">
-    <table class="table table-sm">
+<div class="row" style="position:relative;width:100%;margin-left:30">
+  <div>
+    <table class="table table-sm" style="position:inherit">
         <thead>
             <tr>
               <!-- <th>    ID  </th> -->
@@ -47,8 +47,8 @@
         @endforeach
         <tbody>
     </table>
+  </div>
 </div>
-<br>
 <hr>
 
 @if(Auth::user()->hasRole('manager,admin'))
@@ -60,10 +60,10 @@
 
       <div class="form-row" style="margin: 2px">
           <div class="col-xs">
-            <input class="form-control" type="text" name="name" value="{{ old('name') ? old('name') : Rand::get('male', '', 5, 15)->name() }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
+            <input class="form-control" type="text" name="name" value="{{ old('name') ? old('name') : $rand_player->name() }}" placeholder="PlayerName" min="4" maxlength="15" autocomplete="off" required />
           </div>
           <div class="col-xs">
-            <input class="form-control" type="text" name="nick" value="{{ old('nick') ? old('nick') : Rand::get('male', '', 5, 15)->surname() }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
+            <input class="form-control" type="text" name="nick" value="{{ old('nick') ? old('nick') : $rand_player->surname() }}" placeholder="PlayerNick" min="4" maxlength="15" autocomplete="off" required />
           </div>
           <div class="col-xs">
             <select class="form-control" name="role_id" required>
