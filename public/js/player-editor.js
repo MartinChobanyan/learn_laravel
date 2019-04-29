@@ -41,12 +41,14 @@ modal.find('.modal-footer button#Save').click(function(){
 
             modal.find('.modal-body .alert-success').html(result.success + '!').show();
 
-            // Updating player data == ===sd-=in team's players table
+            // Updating player data in team's players table
             formInputs.map(function() {
                 if(this.name === 'role_id'){
                     player.find('td#role').text($(this).find('option[value=' + this.value + ']').text());
                 }else player.find('td#' + this.name).text(this.value + (this.name === 'salary' ? '.00$' : ''));
             });
+            // Updating players chart
+            updateChart();
         },
         error: function(result) {
             modal.find('.modal-body .alert-success').hide();
