@@ -48,7 +48,7 @@
         <tbody>
     </table>
   </div>
-  <div class="ml-5"><canvas id="salaryChart" width="350" height="250"></canvas></div>
+  <div class="ml-5"><canvas id="salaryChart" width="350" height="250"></canvas></div><span class="pull-right">Total salary: {{ $total_salary }}.00$</span>
 </div>
 <hr>
 
@@ -187,49 +187,28 @@
   <script src="{{ asset('js/player-contract.js') }}"></script>
 @endif
 
-<script src="{{ asset('js/Chart.min.js') }}"></script>
-<script>
-  var Chart = new Chart($('#salaryChart'), {
-    type: 'pie',
-    data: {
-        labels: ['goalkeeper','defender','midfielder','attacker','skipper','substitute'],
-        datasets: [{
-            label: '# of Votes',
-            data: [0, 0, 0, 0, 0, 0],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    }
-  });
-  function updateChart(){
-    Chart.data.labels.forEach((label, i) => {
-      let sum = 0;
-      $('table tr').find('td:contains("' + label + '")').parent().map((j, el) => {
-        sum += parseInt($(el).children('td#salary').text());
-      });
-      Chart.data.datasets[0].data[i] = sum;
-    });
-    Chart.update({
-      duration: 1000,
-      easing: 'easeOutSine'
-    });
-  }
-  updateChart(); // Running Chart
-</script>
+@component('chart', [
+                      'chartElementSelector' => '#salaryChart',
+                      'data' => $chart_data
+                    ]
+          )
+  @slot('additionalScript')
+    <script>
+      function updateChart(){
+        Chart.data.labels.forEach((label, i) => {
+          let sum = 0;
+          $('table tr').find('td:contains("' + label + '")').parent().map((j, el) => {
+            sum += parseInt($(el).children('td#salary').text());
+          });
+          Chart.data.datasets[0].data[i] = sum;
+        });
+        Chart.update({
+          duration: 1000,
+          easing: 'easeOutSine'
+        });
+      }
+    </script>
+  @endslot
+@endcomponent
 
 @endsection

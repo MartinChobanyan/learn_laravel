@@ -22,13 +22,19 @@ class TeamController extends Controller
         $team = Team::findOrFail($team_id);
         $players = $team->players;
         $roles = PlayerRole::get();
+        $total_salary = 0;
+        $chart_data = [];
 
+        foreach($roles as $role) foreach($players as $player) if($player->role->name === $role->name) $chart_data[$role->name] += (isset($chart_data[$role->name]) ? null : $chart_data[$role->name] = 0) + $player->salary + (($total_salary += $player->salary) - $total_salary);
+        
         return view('teams/team', [
             'team_id' => $team_id,
             'team' => $team, 
             'players' => $players,
             'roles' => $roles,
-            'rand_player' => RandClass::get('male', '', 5, 15)
+            'rand_player' => RandClass::get('male', '', 5, 15),
+            'chart_data' => $chart_data,
+            'total_salary' => $total_salary
         ]);
     }
 
