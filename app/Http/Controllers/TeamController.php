@@ -25,7 +25,15 @@ class TeamController extends Controller
         $total_salary = 0;
         $chart_data = [];
 
-        foreach($roles as $role) foreach($players as $player) if($player->role->name === $role->name) $chart_data[$role->name] += (isset($chart_data[$role->name]) ? null : $chart_data[$role->name] = 0) + $player->salary + (($total_salary += $player->salary) - $total_salary);
+        foreach($roles as $role) {
+            foreach($players as $player) {
+                if($player->role->name === $role->name) {
+                    if(!isset($chart_data[$role->name])) $chart_data[$role->name] = 0;
+                    $chart_data[$role->name] += $player->salary;
+                    $total_salary += $player->salary;
+                }
+            }
+        }
         
         return view('teams/team', [
             'team_id' => $team_id,

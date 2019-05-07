@@ -48,7 +48,7 @@
         <tbody>
     </table>
   </div>
-  <div class="ml-5"><canvas id="salaryChart" width="350" height="250"></canvas></div><span class="pull-right">Total salary: {{ $total_salary }}.00$</span>
+  <div class="ml-5">@include('chart', ['data' => $chart_data])</div><span class="pull-right">Total salary: {{ $total_salary }}.00$</span>
 </div>
 <hr>
 
@@ -186,29 +186,5 @@
   <script src="{{ asset('js/player-deletor.js') }}"></script>
   <script src="{{ asset('js/player-contract.js') }}"></script>
 @endif
-
-@component('chart', [
-                      'chartElementSelector' => '#salaryChart',
-                      'data' => $chart_data
-                    ]
-          )
-  @slot('additionalScript')
-    <script>
-      function updateChart(){
-        Chart.data.labels.forEach((label, i) => {
-          let sum = 0;
-          $('table tr').find('td:contains("' + label + '")').parent().map((j, el) => {
-            sum += parseInt($(el).children('td#salary').text());
-          });
-          Chart.data.datasets[0].data[i] = sum;
-        });
-        Chart.update({
-          duration: 1000,
-          easing: 'easeOutSine'
-        });
-      }
-    </script>
-  @endslot
-@endcomponent
 
 @endsection

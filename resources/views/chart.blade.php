@@ -1,3 +1,4 @@
+<canvas id="{{ $id ?? $id = str_random(10) }}" width="350" height="250"></canvas>
 @php
     $labels = $values = [];
     foreach ($data as $label => $value) {
@@ -7,7 +8,7 @@
 @endphp
 <script src="{{ asset('js/Chart.min.js') }}"></script>
 <script>
-    var Chart = new Chart($("{{ $chartElementSelector ?? 'chart'}}"), {
+    var Chart = new Chart($("#{{ $id }}"), {
         type: "{{ $type ?? 'pie' }}",
         data: {
             labels: @json($labels),
@@ -33,7 +34,17 @@
             }]
         },
     })
+    function updateChart(){
+        Chart.data.labels.forEach((label, i) => {
+            let sum = 0;
+            $('table tr').find('td:contains("' + label + '")').parent().map((j, el) => {
+            sum += parseInt($(el).children('td#salary').text());
+            });
+            Chart.data.datasets[0].data[i] = sum;
+        });
+        Chart.update({
+            duration: 1000,
+            easing: 'easeOutSine'
+        });
+    }
 </script>
-<additionalScript>
-    {{ $additionalScript }}
-</additionalScript>
