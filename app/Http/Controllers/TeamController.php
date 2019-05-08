@@ -7,6 +7,8 @@ use App\Models\Team;
 use App\Models\Stadium;
 use App\Models\PlayerRole;
 use App\Facades\RandClass;
+use App\Models\Player;
+use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -20,21 +22,17 @@ class TeamController extends Controller
     
     public function show($team_id){
         $team = Team::findOrFail($team_id);
-        $players = $team->players;
+        $players = Player::where('team_id', $team->id)->get();
         $roles = PlayerRole::get();
-        $total_salary = 0;
-        $chart_data = [];
 
-        foreach($roles as $role) {
-            foreach($players as $player) {
-                if($player->role->name === $role->name) {
-                    if(!isset($chart_data[$role->name])) $chart_data[$role->name] = 0;
-                    $chart_data[$role->name] += $player->salary;
-                    $total_salary += $player->salary;
-                }
-            }
-        }
+        $chart_data = Player::leftJoin('players_roles', 'players_roles.id', '=', 'players.role_id')
+                        ->whereRaw('players.team_id = ?', [$team->id])
+                        ->select('players_roles.name', DB::raw('SUM(salary) as salary'))
+                        ->groupBy('players_roles.name')
+                        ->get();
         
+        $total_salary = $chart_data->sum('salary');
+
         return view('teams/team', [
             'team_id' => $team_id,
             'team' => $team, 

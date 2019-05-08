@@ -1,9 +1,9 @@
 <canvas id="{{ $id ?? $id = str_random(10) }}" width="350" height="250"></canvas>
 @php
     $labels = $values = [];
-    foreach ($data as $label => $value) {
-        array_push($labels, $label);
-        array_push($values, $value);
+    foreach ($data as $row) {
+        array_push($labels, $row->name);
+        array_push($values, $row->salary);
     }
 @endphp
 <script src="{{ asset('js/Chart.min.js') }}"></script>
