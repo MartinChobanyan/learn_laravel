@@ -24,8 +24,17 @@
                     </li>
                 @endif
             @else
+                <form action="{{ route('search') }}" method="GET" class="form-inline mb-0 mr-1">
+                    @csrf
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" name="search_line" placeholder="Search.." autocomplete="off" required>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" style="color:floralwhite;border-color:whitesmoke" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" style="outline:none" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 

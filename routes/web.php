@@ -61,4 +61,6 @@ Route::middleware('auth', 'role:user,manager,admin')->group(function () {
             Route::delete('delete/{player_id}', 'PlayerController@deleteContract');
         });
     });
+
+    Route::get('/search', 'SearchController@search')->name('search');
 });
