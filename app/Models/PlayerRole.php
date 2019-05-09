@@ -12,5 +12,5 @@ class PLayerRole extends Model
     }
 
     protected $table = 'players_roles';
-    protected $fillable = ['role', 'salary'];
+    protected $fillable = ['role'];
 }

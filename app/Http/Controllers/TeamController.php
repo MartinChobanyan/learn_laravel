@@ -8,7 +8,6 @@ use App\Models\Stadium;
 use App\Models\PlayerRole;
 use App\Facades\RandClass;
 use App\Models\Player;
-use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -27,7 +26,7 @@ class TeamController extends Controller
 
         $chart_data = Player::leftJoin('players_roles', 'players_roles.id', '=', 'players.role_id')
                         ->whereRaw('players.team_id = ?', [$team->id])
-                        ->select('players_roles.name', DB::raw('SUM(salary) as salary'))
+                        ->select('players_roles.name', \DB::raw('SUM(salary) as salary'))
                         ->groupBy('players_roles.name')
                         ->get();
         
