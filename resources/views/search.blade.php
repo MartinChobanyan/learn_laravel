@@ -7,23 +7,20 @@
                 <span class="display-4">Searched result: "{{ $data['q'] }}"</span>
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg">
                 <b>Players:</b>
                 <table class="table table-responsive">
                     <thead>
-                        <th>ID</th>
                         <th scope="col" class="text-center">Name</th>
-                        <th scope="col" class="text-center">Nick</th>
                     </thead>
                     <tbody>
-                        @foreach ($data['players'] as $player)
-                            <tr>
-                                <td id="player-id">{{ $player->id }}</td>
-                                <td id="player-name">{{ $player->name }}</td>
-                                <td id="player-nick">{{ $player->nick }}</td>
-                            </tr>
+                        @foreach ($data['search_results'] as $search_result)
+                            @if($search_result->type == 'player')
+                                <tr>
+                                    <td id="player-name">{{ $search_result->name }}</td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -32,16 +29,16 @@
                 <b>Teams:</b>
                 <table class="table table-responsive">
                     <thead>
-                        <th>ID</th>
                         <th scope="col" class="text-center">Name</th>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($teams as $team) --}}
-                            <tr>
-                                <td id="team-id"></td>
-                                <td id="team-name"></td>
-                            </tr>
-                        {{-- @endforeach --}}
+                        @foreach($data['search_results'] as $search_result)
+                            @if($search_result->type == 'team')
+                                <tr>
+                                    <td id="team-name">{{ $search_result->name }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -49,19 +46,18 @@
                 <b>Stadiums:</b>
                 <table class="table table-responsive">
                     <thead>
-                        <th>ID</th>
                         <th scope="col" class="text-center">Name</th>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($data['stadiums'] as $stadium) --}}
-                            <tr>
-                                <td id="stadium-id"></td>
-                                <td id="stadium-name"></td>
-                            </tr>
-                        {{-- @endforeach --}}
+                        @foreach($data['search_results'] as $search_result)
+                            @if($search_result->type == 'stadium')
+                                <tr>
+                                    <td id="stadium-name">{{ $search_result->name }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
-            </div>
             </div>
         </div>
     </div>
