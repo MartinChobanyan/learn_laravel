@@ -24,10 +24,11 @@ class SearchController extends Controller
             ->where('name', 'LIKE', '%'.$data['q'].'%');
         $search_results = Player::
             select(
-                'name', 'player as type'
+                \DB::raw("(name || ' ' || nick) as name"), 'player as type'
             )
             ->where(function ($query) use ($data) {
-                $query->where('name', 'LIKE', '%'.$data['q'].'%');
+                $query->where('name', 'LIKE', '%'.$data['q'].'%')
+                    ->orWhere('nick', 'LIKE', '%'.$data['q'].'%');
             })
             ->unionAll($stadiums)
             ->unionAll($teams)

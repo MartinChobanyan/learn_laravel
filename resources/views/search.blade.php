@@ -13,12 +13,14 @@
                 <table class="table table-responsive">
                     <thead>
                         <th scope="col" class="text-center">Name</th>
+                        <th scope="col" class="text-center">Nick</th>
                     </thead>
                     <tbody>
                         @foreach ($data['search_results'] as $search_result)
                             @if($search_result->type == 'player')
                                 <tr>
-                                    <td id="player-name">{{ $search_result->name }}</td>
+                                    <td id="player-name">{{ explode(' ', $search_result->name)[0] }}</td>
+                                    <td id="player-nick">{{ explode(' ', $search_result->name)[1] }}</td>
                                 </tr>
                             @endif
                         @endforeach
