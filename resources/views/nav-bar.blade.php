@@ -13,6 +13,10 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            <div class="mr-2" style="margin-top:8">
+                <a href="/lang/en"><img src="{{ asset('img/en_flag.png') }}" height="13"></a>
+                <a href="/lang/ru"><img src="{{ asset('img/ru_flag.png') }}" height="13"></a>
+            </div>
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
