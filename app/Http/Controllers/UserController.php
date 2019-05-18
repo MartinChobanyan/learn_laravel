@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
 use App\Models\User;
 
 class UserController extends Controller
@@ -79,7 +78,7 @@ class UserController extends Controller
             [
                 'required' => 'The :attribute field is required.',
                 'between' => 'The :attribute value :input is not between :min - :max.',
-                'alpha' => 'The :attribute value mast contain only latyn letters.'
+                'alpha' => 'The :attribute value must contain only latyn letters.'
             ]
         );
     }
