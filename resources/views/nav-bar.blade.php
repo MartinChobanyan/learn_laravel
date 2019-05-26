@@ -6,10 +6,10 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/">{{ __('header.home') }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/team">Teams</a>
+                <a class="nav-link" href="/team">{{ __('header.teams') }}</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -20,20 +20,20 @@
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link" href="/login">{{ __('header.login') }}</a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
+                        <a class="nav-link" href="/register">{{ __('header.register') }}</a>
                     </li>
                 @endif
             @else
                 <form action="{{ route('search') }}" method="GET" class="form-inline mb-0 mr-1">
                     @csrf
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" name="search_line" placeholder="Search.." autocomplete="off" required>
+                        <input type="text" class="form-control" name="search_line" placeholder="{{ __('header.search') }}.." autocomplete="off" required>
                         <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary" style="color:floralwhite;border-color:whitesmoke" type="submit">Search</button>
+                            <button class="btn btn-outline-secondary" style="color:floralwhite;border-color:whitesmoke" type="submit">{{ __('header.search') }}</button>
                         </div>
                     </div>
                 </form>
@@ -43,10 +43,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-                        @if(Auth::user()->hasRole('manager,admin')) <a class="dropdown-item" href="{{ route('my-posts') }}">My Posts</a> @endif
-                        @if(Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">Users</a> @endif
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="return logout()">Logout</a>
+                        <a class="dropdown-item" href="{{ route('profile') }}">{{ __('header.profile') }}</a>
+                        @if(Auth::user()->hasRole('manager,admin')) <a class="dropdown-item" href="{{ route('my-posts') }}">{{ __('header.my_posts') }}</a> @endif
+                        @if(Auth::user()->hasRole('admin')) <a class="dropdown-item" href="{{ route('users') }}">{{ __('header.users') }}</a> @endif
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="return logout()">{{ __('header.logout') }}</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
